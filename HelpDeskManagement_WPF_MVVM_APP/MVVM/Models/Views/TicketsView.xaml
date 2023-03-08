@@ -12,7 +12,7 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:TicketsViewModel}"
      
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="1500">
+             d:DesignHeight="1000" d:DesignWidth="2000">
 
     <Grid Margin="40" >
         <Grid.RowDefinitions >

@@ -23,6 +23,8 @@ internal class TicketsEntity
     public DateTime? LastUpdatedAt { get; set; }
     public DateTime? ClosedAt { get; set; }
     public virtual ICollection<TicketComments> Comments { get; set; } = new HashSet<TicketComments>();
+    public virtual ICollection<TicketPriorities> Priorities { get; set; } = new HashSet<TicketPriorities>();
+    public virtual ICollection<TicketStatuses> Statuses { get; set; } = new HashSet<TicketStatuses>();
     public virtual UsersEntity Users { get; set; } = null!;
     public static implicit operator Ticket(TicketsEntity entity)
     {

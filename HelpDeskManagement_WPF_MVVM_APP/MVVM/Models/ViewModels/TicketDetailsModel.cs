@@ -13,6 +13,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels;
 
     public partial class TicketDetailModel : ObservableObject
     {
+
     public Guid SelectedId { get; set; }
 
    

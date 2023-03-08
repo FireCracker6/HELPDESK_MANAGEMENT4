@@ -22,7 +22,7 @@
       
             <TextBlock Grid.Row="1" x:Name="_ticketOwnerName" />
 
-        <DataGrid x:Name="_myDetailsDataGrid" ItemsSource="{Binding Tickets}" AutoGenerateColumns="False">
+        <DataGrid x:Name="_myDetailsDataGrid" ItemsSource="{Binding Tickets}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ticket ID" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
@@ -53,7 +53,25 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Priority" Binding="{Binding Path=Priorities[0].PriorityName}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Path=Statuses[0].StatusName}" />
             </DataGrid.Columns>
+            <!--<TabItem Header="Details">
+                <StackPanel>
+                    <DataGrid x:Name="ticketDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Category" Binding="{Binding TicketCategory, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Last Updated At" Binding="{Binding LastUpdatedAt, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Closed At" Binding="{Binding ClosedAt, Mode=TwoWay}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Save" Command="{Binding UpdateTicketCommand}" />
+                </StackPanel>
+            </TabItem>-->
+
         </DataGrid>
 
 

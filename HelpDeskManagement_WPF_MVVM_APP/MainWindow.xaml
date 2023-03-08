@@ -9,7 +9,7 @@
             
              d:DataContext="{d:DesignInstance Type=viewmodels:TicketsViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1500">
+        Title="MainWindow" Height="1000" Width="2000">
     <Grid Background="#b7c7d4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

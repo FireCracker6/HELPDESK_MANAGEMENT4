@@ -1,14 +1,24 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using HelpDeskManagement_WPF_MVVM_APP.Contexts;
 using HelpDeskManagement_WPF_MVVM_APP.Models;
 
 namespace HelpDeskManagement_WPF_MVVM_APP.Services;
 
 internal class UserService : DataService<UsersEntity>
 {
+    private readonly DataContext _context;
+
+
+    public UserService()
+    {
+        _context = new DataContext();
+    }
+
     public override Task<IEnumerable<UsersEntity>> GetAllAsync()
     {
         
@@ -37,6 +47,22 @@ internal class UserService : DataService<UsersEntity>
     {
         return base.UpdateRecordAsync(entity, id);
     }
+    public override async Task DeleteAsync(Guid id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user != null)
+        {
+            var tickets = _context.Tickets.Where(t => t.UsersId == id);
+            foreach (var ticket in tickets)
+            {
+                _context.Tickets.Remove(ticket);
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+    }
+
 
 
 

@@ -22,7 +22,9 @@ internal class Ticket
 
     public User User { get; set; }
     public ICollection<TicketComments> Comments { get; set; } = new List<TicketComments>();
-   
+    public ICollection<TicketPriorities> Priorities { get; set; } = new List<TicketPriorities>();
+    public ICollection<TicketStatuses> Statuses { get; set; } = new List<TicketStatuses>();
+
 
 }
 internal class User

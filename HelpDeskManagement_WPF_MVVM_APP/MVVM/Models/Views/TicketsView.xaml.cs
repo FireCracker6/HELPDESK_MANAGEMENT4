@@ -17,7 +17,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
     /// </summary>
     public partial class TicketsView : UserControl
     {
-      
+
         private readonly UserService _userService;
 
 
@@ -26,13 +26,13 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             InitializeComponent();
             _userService = new UserService();
 
-                ShowAllUsers();
-                ShowAllTickets();
-           
+            ShowAllUsers();
+            ShowAllTickets();
+
         }
         private async Task ShowAllUsers()
         {
-            var userService = new UserService(); 
+            var userService = new UserService();
             var users = await userService.GetAllAsync();
             myDataGrid.ItemsSource = users;
         }
@@ -43,12 +43,12 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             myTicketDataGrid.ItemsSource = tickets;
             Debug.WriteLine($"Tickets found {tickets.Count()}");
         }
-       
 
-        
+
+
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-           
+
             var user = ((FrameworkElement)sender).DataContext as UsersEntity;
 
             if (user != null)
@@ -56,6 +56,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
                 await _userService.DeleteAsync(user.Id);
 
                 await ShowAllUsers();
+                await ShowAllTickets();
             }
         }
 
@@ -91,8 +92,8 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             if (selectedItem is UsersEntity userEntity)
             {
                 // Get a reference to the Frame control that hosts this UserControl
-               // var frame = (Frame)Window.GetWindow(this).FindName("myFrame");
-                    var frame = FindVisualChild<Frame>(this);
+                // var frame = (Frame)Window.GetWindow(this).FindName("myFrame");
+                var frame = FindVisualChild<Frame>(this);
 
                 // Navigate to the new UserControl with the UserEntity object
                 frame.NavigationService.Navigate(new TicketDetails(userEntity.Id));
@@ -106,7 +107,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             }
 
         }
-       
+
 
         public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {

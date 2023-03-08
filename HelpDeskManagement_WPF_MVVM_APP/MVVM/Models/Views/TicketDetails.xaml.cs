@@ -14,7 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using CommunityToolkit.Mvvm.Input;
 using HelpDeskManagement_WPF_MVVM_APP.Contexts;
+using HelpDeskManagement_WPF_MVVM_APP.Models;
 using HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels;
 using HelpDeskManagement_WPF_MVVM_APP.Services;
 
@@ -28,6 +30,8 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
         private readonly UserService _userService;
         private readonly Guid _userId;
+
+
 
 
         public TicketDetails(Guid userId)
@@ -45,6 +49,8 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
 
         }
+
+
 
         private void ShowDefaultView()
         {
@@ -77,9 +83,6 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
                 // This could mean showing an error message or redirecting the user to a different page.
             }
         }
-
-
-
 
 
     }
