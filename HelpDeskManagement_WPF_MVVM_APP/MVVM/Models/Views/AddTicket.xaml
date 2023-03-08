@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views.AddTicket"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
+              xmlns:viewmodels="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:AddTicketsViewModel}"
+                mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    
+        <Grid Margin="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="auto" />
+
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{Binding PageTitle}" FontSize="22" FontWeight="Medium" Margin="0 0 0 20" />
+            <StackPanel Grid.Row="1" Background="#c4becc" Margin="0" HorizontalAlignment="Stretch">
+            
+            <Label Content="Enter First Name..." FontWeight="Medium" />
+            <TextBox Text="{Binding FirstName }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Label Content="Enter Last Name..." FontWeight="Medium" />
+            <TextBox Text="{Binding LastName }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Label Content="Enter Email..."  FontWeight="Medium"/>
+            <TextBox Text="{Binding Email }" Padding="5" Margin="0 2 0 5"   Background="#f4eff4" />
+            <Label Content="Enter Phone Number..." FontWeight="Medium" />
+                <TextBox Text="{Binding PhoneNumber }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Label Content="Enter Ticket Title..." FontWeight="Medium" />
+            <TextBox Text="{Binding Title }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+
+            <Label Content="Enter Description..."  FontWeight="Medium"/>
+            <TextBox Text="{Binding Description }" Padding="5" Margin="0 2 0 5" AcceptsReturn="True" TextWrapping="Wrap" Height="100"  Background="#f4eff4" />
+
+            <Label Content="Enter Category..."  FontWeight="Medium"/>
+            <TextBox Text="{Binding TicketCategory }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+          
+            <Calendar x:Name="ticketIssueDate" />
+            <Button   Command="{Binding AddCommand}" Content="ADD TICKET" Padding="8"  Margin="0 10 0 2" HorizontalAlignment="Stretch" Background="#8394a3" />
+
+            </StackPanel>
+
+        </Grid>
+   
+</UserControl>

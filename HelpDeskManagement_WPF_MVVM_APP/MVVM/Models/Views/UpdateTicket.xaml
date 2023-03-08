@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views.UpdateTicket"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="800">
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="auto" />
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding PageTitle}" FontSize="22" FontWeight="Medium" Margin="0 0 0 20" />
+        <StackPanel Grid.Row="1" Background="#c4becc" Margin="0" HorizontalAlignment="Stretch">
+            <Label Content="Ticket number..." FontWeight="Medium" />
+            <TextBox Text="{Binding Artistname }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Label Content="Edit First Name..." FontWeight="Medium" />
+            <TextBox Text="{Binding Artistname }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Label Content="Edit Last Name..." FontWeight="Medium" />
+            <TextBox Text="{Binding Artistname }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Label Content="Edit Username..."  FontWeight="Medium"/>
+            <TextBox Text="{Binding Associates }" Padding="5" Margin="0 2 0 5"   Background="#f4eff4" />
+            <Label Content="Enter Issue..." FontWeight="Medium" />
+            <TextBox Text="{Binding Artistname }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+
+            <Label Content="Edit Issue..."  FontWeight="Medium"/>
+            <TextBox Text="{Binding Recordlabel }" Padding="5" Margin="0 2 0 5" AcceptsReturn="True" TextWrapping="Wrap" Height="100"  Background="#f4eff4" />
+            <Label Content="Edit Due Date..."  FontWeight="Medium"/>
+            <TextBox Text="{Binding Artistsongs }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+            <Button   Command="{Binding AddCommand}" Content="UPDATE TICKET" Padding="8"  Margin="0 10 0 2" HorizontalAlignment="Stretch" Background="#8394a3" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>
