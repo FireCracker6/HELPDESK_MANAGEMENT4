@@ -42,10 +42,11 @@ internal class TicketsEntity
             Comments = entity.Comments.Select(c => new TicketComments
             {
                 Id = c.Id,
-                TicketId = c.TicketId,
+                TicketsId = c.TicketsId, // Use TicketId instead of TicketsId
                 CommentsText = c.CommentsText,
                 CreatedAt = c.CreatedAt
             }).ToList()
         };
     }
+
 }

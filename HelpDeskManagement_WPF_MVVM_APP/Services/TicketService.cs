@@ -62,13 +62,13 @@ internal class TicketService
                 Comments = t.Comments.Select(c => new TicketComments
                 {
                     Id = c.Id,
-                    TicketId = c.TicketId,
+                    TicketsId = c.TicketsId,
                     CommentsText = c.CommentsText,
                     CreatedAt = c.CreatedAt
                 }).ToList()
             })
             .ToListAsync();
-
+        Debug.WriteLine(tickets.Count());
         return tickets;
     }
 
