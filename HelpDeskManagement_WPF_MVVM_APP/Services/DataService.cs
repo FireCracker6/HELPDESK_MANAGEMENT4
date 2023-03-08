@@ -31,10 +31,7 @@ internal class DataService<T> where T : class
 		return await _context.Set<T>().ToListAsync();
 	}
 
-    //public virtual async Task<T> GetAsync(Func<T, bool> predicate)
-    //{
-    //	return await _context.Set<T>().FindAsync(predicate) ?? null!;
-    //}
+ 
 
     public virtual async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
     {

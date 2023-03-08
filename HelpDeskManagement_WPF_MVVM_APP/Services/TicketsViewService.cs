@@ -25,7 +25,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.Services
         {
             var tickets = new TicketService();
            
-           await tickets.GetAll();
+           await tickets.GetAllAsync();
         }
         public TicketsViewService()
         {
@@ -43,30 +43,26 @@ namespace HelpDeskManagement_WPF_MVVM_APP.Services
             {
               
                   var getAll = new TicketService();
-                var customers =  getAll.GetAll();
-                
+                var customers =  getAll.GetAllAsync();
+                Debug.WriteLine(getAll.GetAllAsync());
 
             }
             catch { tickets = new ObservableCollection<TicketModel>(); }
         }
 
-
-        public static   ObservableCollection<TicketModel> Tickets()
+        public static ObservableCollection<TicketModel> Tickets()
         {
-           var result  =  _context?.GetAll();
+        //    var _context = new DataContext(); // Initialize _context
 
-            List list = new List();
-        
-            var returnList = ReturnList();
-            Debug.WriteLine($"FUCK! {result}");
-       
+            var result = _context?.GetAllAsync();
+
+            var tickets = new ObservableCollection<TicketModel>(); // Create an empty ObservableCollection
+
+            // TODO: add logic to populate the tickets ObservableCollection
+
             return tickets;
-         // UsersEntity usersEntity = new UsersEntity();
-         
-            
-
         }
-      
+
 
 
 

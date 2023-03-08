@@ -28,6 +28,6 @@ internal class DataContext : DbContext
     public DbSet<TicketComments>  Comments { get; set; } = null!;
     public DbSet<TicketPriorities> Priorities { get; set; } = null!;
     public DbSet<TicketStatuses> Statuses { get; set; } = null!;
-    public DbSet<TicketComments> TicketComments { get; set; } = null!;
+ 
    
 }

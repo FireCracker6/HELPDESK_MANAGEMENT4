@@ -18,8 +18,11 @@ internal class Ticket
     public DateTime? CreatedAt { get; set; }
     public DateTime? LastUpdatedAt { get; set; }
     public DateTime? ClosedAt { get; set; }
+   
+
     public User User { get; set; }
     public ICollection<TicketComments> Comments { get; set; } = new List<TicketComments>();
+   
 
 }
 internal class User

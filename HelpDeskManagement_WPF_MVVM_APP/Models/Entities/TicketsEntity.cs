@@ -15,7 +15,7 @@ internal class TicketsEntity
 
     public int Id { get; set; }
     public Guid UsersId { get; set; }
-    public Guid UserId { get; set; }
+    
     public string Title { get; set; } = null!;
     public string? Description { get; set; }
     public string TicketCategory { get; set; } = null!;
@@ -29,8 +29,8 @@ internal class TicketsEntity
         return new Ticket
         {
             Id = entity.Id,
-            UserId = entity.UserId,
-            UsersId = entity.UsersId,
+         
+            UsersId = entity.Users.Id,
             FirstName = entity.Users.FirstName,
             LastName = entity.Users.LastName,
             Email = entity.Users.Email,

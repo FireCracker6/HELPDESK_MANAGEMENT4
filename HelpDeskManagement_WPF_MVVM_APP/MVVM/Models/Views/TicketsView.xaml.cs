@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,9 +38,10 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
         }
         private async Task ShowAllTickets()
         {
-            var ticketService = new TicketUserService();
+            var ticketService = new TicketService();
             var tickets = await ticketService.GetAllAsync();
             myTicketDataGrid.ItemsSource = tickets;
+            Debug.WriteLine($"Tickets found {tickets.Count()}");
         }
        
 

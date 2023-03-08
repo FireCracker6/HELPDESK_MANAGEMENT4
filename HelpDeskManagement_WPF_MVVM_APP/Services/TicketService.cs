@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using HelpDeskManagement_WPF_MVVM_APP.Contexts;
 using HelpDeskManagement_WPF_MVVM_APP.Models;
+using HelpDeskManagement_WPF_MVVM_APP.MVVM.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskManagement_WPF_MVVM_APP.Services;
@@ -29,20 +30,33 @@ internal class TicketService
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Ticket>> GetAll()
+    public async Task<IEnumerable<TicketModel>> GetAllAsync()
     {
-        var _list = new List<Ticket>();
-
-        foreach(var userEntity in await _context.Users.Include(x => x.Tickets).ToListAsync())
-         //   foreach (var userEntity in await _context.Users.ToListAsync())
+        var tickets = await _context.Tickets
+            .Include(t => t.Users)
+            .Include(t => t.Comments)
+            .Select(t => new TicketModel
             {
-           
+                Id = t.Id,
+                UsersId= t.Users.Id,
+                FirstName = t.Users.FirstName,
+                LastName = t.Users.LastName,
+                Email = t.Users.Email,
+                PhoneNumber = t.Users.PhoneNumber,
+                Title = t.Title,
+                Description = t.Description,
+                CreatedAt = t.CreatedAt,
+                TicketCategory = t.TicketCategory,
+                LastUpdatedAt = t.LastUpdatedAt,
+                ClosedAt = t.ClosedAt
+            })
+            .ToListAsync();
 
-            _list.Add(userEntity);
-        }
-        return _list;
+        return tickets;
     }
-    public async Task<IEnumerable<Ticket>> GetAsync(Guid userId)
+
+
+public async Task<IEnumerable<Ticket>> GetAsync(Guid userId)
     {
         var tickets = await _context.Tickets
             .Include(t => t.Users)
@@ -51,7 +65,7 @@ internal class TicketService
             .Select(t => new Ticket
             {
                 Id = t.Id,
-                UsersId = t.UsersId,
+                UsersId = t.Users.Id,
                 FirstName = t.Users.FirstName,
                 LastName = t.Users.LastName,
                 Email = t.Users.Email,
@@ -59,13 +73,13 @@ internal class TicketService
                 Title = t.Title,
                 Description = t.Description,
                 CreatedAt = t.CreatedAt,
-                Comments = t.Comments.Select(c => new TicketComments
+                Comments = t.Comments.Count > 0 ? t.Comments.Select(c => new TicketComments
                 {
                     Id = c.Id,
-                    TicketsId = c.TicketsId,
+                    TicketId = c.TicketId,
                     CommentsText = c.CommentsText,
                     CreatedAt = c.CreatedAt
-                }).ToList()
+                }).ToList() : new List<TicketComments>()
             })
             .ToListAsync();
         Debug.WriteLine(tickets.Count());

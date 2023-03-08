@@ -21,21 +21,41 @@
         </Grid.RowDefinitions>
       
             <TextBlock Grid.Row="1" x:Name="_ticketOwnerName" />
-      
-      
-        <DataGrid Grid.Row="2" x:Name="_myDetailsDataGrid" AutoGenerateColumns="False">
+
+        <DataGrid x:Name="_myDetailsDataGrid" ItemsSource="{Binding Tickets}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ticket ID" Binding="{Binding UsersId}" />
-               
+                <DataGridTextColumn Header="Ticket ID" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
                 <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt}" />
-                <DataGridTextColumn Header="Owner Name" Binding="{Binding FirstName}"  />
-                <DataGridTextColumn Header="Owner SurName" Binding="{Binding LastName}"  />
-                <DataGridTextColumn Header="Owner Email" Binding="{Binding Email}"  />
-                <!--<DataGridTextColumn Header="Status" Binding="{Binding Email}" />-->
+            
+                <DataGridTextColumn Header="Comments">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}{1}">
+                            <Binding Path="Comments.Count" />
+                            <Binding Source=" comment(s)" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Comments">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl ItemsSource="{Binding Comments}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CommentsText}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
 
     </Grid>
 
