@@ -33,23 +33,38 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
 
 
-
         public TicketDetails(Guid userId)
         {
             InitializeComponent();
-            TicketDetailModel ticketDetailModel = new TicketDetailModel();
-            DataContext = new TicketDetailModel(); // or pass the view model as a parameter to the constructor
+
+            DataContext = new TicketDetailModel(userId);
+
             _userService = new UserService();
-
             _userId = userId;
-            ticketDetailModel.SelectedId = userId;
             ShowUser(userId);
-
-
-
-
         }
+      
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ticketDetailModel = (TicketDetailModel)DataContext;
+            var selectedTicket = ticketDetailModel.SelectedTicket;
+          
+            ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
 
+            var publicTicket = new PublicTicket()
+            {
+                Id = ticketDetailModel.SelectedTicket.Id,
+                UsersId = ticketDetailModel.SelectedTicket.UsersId,
+                Title = ticketDetailModel.SelectedTicket.Title,
+                Description = ticketDetailModel.SelectedTicket.Description,
+                TicketCategory = ticketDetailModel.SelectedTicket.TicketCategory,
+                CreatedAt = ticketDetailModel.SelectedTicket.CreatedAt,
+                LastUpdatedAt = ticketDetailModel.SelectedTicket.LastUpdatedAt,
+                ClosedAt = ticketDetailModel.SelectedTicket.ClosedAt
+            };
+
+            await ticketDetailModel.SaveTicket(publicTicket);
+        }
 
 
         private void ShowDefaultView()
@@ -76,6 +91,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
                 Debug.WriteLine($"Number of tickets retrieved for user with id {userId}: {tickets}");
 
                 _myDetailsDataGrid.ItemsSource = tickets;
+                ticketDataGrid.ItemsSource = tickets;
             }
             else
             {
@@ -83,6 +99,13 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
                 // This could mean showing an error message or redirecting the user to a different page.
             }
         }
+        private void MyDetailsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var ticketDetailModel = (TicketDetailModel)DataContext;
+            ticketDetailModel.SelectedTicket = (Ticket)_myDetailsDataGrid.SelectedItem;
+        }
+
+
 
 
     }

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
               xmlns:viewmodels="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
-             d:DataContext="{d:DesignInstance Type=viewmodels:AddTicketsViewModel}"
+                xmlns:views="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
+          d:DataContext="{d:DesignInstance Type=viewmodels:AddTicketsViewModel}"
                 mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="800">
     
@@ -36,7 +36,7 @@
             <Label Content="Select Category..." FontWeight="Medium" />
             <ComboBox SelectedItem="{Binding TicketCategory}" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
                 <ComboBoxItem Content="Network" />
-                <ComboBoxItem Content="Programming and Software" />
+                <ComboBoxItem Content="Programming &amp; Software" />
                 <ComboBoxItem Content="Hardware related" />
             </ComboBox>
             <Label Content="Pick Priority..." FontWeight="Medium" />

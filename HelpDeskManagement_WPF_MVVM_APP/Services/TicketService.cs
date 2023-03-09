@@ -101,85 +101,93 @@ public async Task<IEnumerable<Ticket>> GetAsync(Guid userId)
         return tickets;
 
     }
-    //public async Task UpdateTicketAsync(Ticket ticket)
-    //{
-    //    var ticketEntity = await _context.Tickets
-    //        .Include(t => t.Priorities)
-    //        .Include(t => t.Statuses)
-    //        .FirstOrDefaultAsync(t => t.Id == ticket.Id);
+    public async Task<Ticket> GetTicketAsync(int id)
+    {
+        return await _context.Tickets
+            .Include(t => t.Priorities)
+            .Include(t => t.Statuses)
+            .FirstOrDefaultAsync(t => t.Id == id);
+    }
 
-    //    if (ticketEntity == null)
-    //    {
-    //        throw new ArgumentException($"Ticket with Id {ticket.Id} does not exist.");
-    //    }
+    public async Task UpdateTicketAsync(PublicTicket ticket)
+    {
+        var ticketEntity = await _context.Tickets
+            .Include(t => t.Priorities)
+            .Include(t => t.Statuses)
+            .FirstOrDefaultAsync(t => t.Id == ticket.Id);
 
-    //    ticketEntity.Title = ticket.Title;
-    //    ticketEntity.Description = ticket.Description;
-    //    ticketEntity.TicketCategory = ticket.TicketCategory;
-    //    ticketEntity.CreatedAt = ticket.CreatedAt;
-    //    ticketEntity.LastUpdatedAt = ticket.LastUpdatedAt;
-    //    ticketEntity.ClosedAt = ticket.ClosedAt;
+        if (ticketEntity == null)
+        {
+            throw new ArgumentException($"Ticket with Id {ticket.Id} does not exist.");
+        }
 
-    //    // Update priorities
-    //    foreach (var priority in ticket.Priorities)
-    //    {
-    //        if (priority.Id == 0)
-    //        {
-    //            // New priority, add to collection
-    //            ticketEntity.Priorities.Add(new TicketPriority
-    //            {
-    //                PriorityName = priority.PriorityName
-    //            });
-    //        }
-    //        else
-    //        {
-    //            // Existing priority, update its properties
-    //            var priorityEntity = ticketEntity.Priorities.FirstOrDefault(p => p.Id == priority.Id);
-    //            if (priorityEntity != null)
-    //            {
-    //                priorityEntity.PriorityName = priority.PriorityName;
-    //            }
-    //        }
-    //    }
+        ticketEntity.Title = ticket.Title;
+        ticketEntity.Description = ticket.Description;
+        ticketEntity.TicketCategory = ticket.TicketCategory;
+        ticketEntity.CreatedAt = ticket.CreatedAt;
+        ticketEntity.LastUpdatedAt = ticket.LastUpdatedAt;
+        ticketEntity.ClosedAt = ticket.ClosedAt;
 
-    //    // Remove deleted priorities
-    //    var prioritiesToRemove = ticketEntity.Priorities.Where(p => !ticket.Priorities.Any(p2 => p2.Id == p.Id)).ToList();
-    //    foreach (var priority in prioritiesToRemove)
-    //    {
-    //        ticketEntity.Priorities.Remove(priority);
-    //    }
+        //// Update priorities
+        //foreach (var priority in ticket.Priorities)
+        //{
+        //    if (priority.Id == 0)
+        //    {
+        //        // New priority, add to collection
+        //        ticketEntity.Priorities.Add(new TicketPriority
+        //        {
+        //            PriorityName = priority.PriorityName
+        //        });
+        //    }
+        //    else
+        //    {
+        //        // Existing priority, update its properties
+        //        var priorityEntity = ticketEntity.Priorities.FirstOrDefault(p => p.Id == priority.Id);
+        //        if (priorityEntity != null)
+        //        {
+        //            priorityEntity.PriorityName = priority.PriorityName;
+        //        }
+        //    }
+        //}
 
-    //    // Update statuses
-    //    foreach (var status in ticket.Statuses)
-    //    {
-    //        if (status.Id == 0)
-    //        {
-    //            // New status, add to collection
-    //            ticketEntity.Statuses.Add(new TicketStatus
-    //            {
-    //                StatusName = status.StatusName
-    //            });
-    //        }
-    //        else
-    //        {
-    //            // Existing status, update its properties
-    //            var statusEntity = ticketEntity.Statuses.FirstOrDefault(s => s.Id == status.Id);
-    //            if (statusEntity != null)
-    //            {
-    //                statusEntity.StatusName = status.StatusName;
-    //            }
-    //        }
-    //    }
+        // Remove deleted priorities
+        //var prioritiesToRemove = ticketEntity.Priorities.Where(p => !ticket.Priorities.Any(p2 => p2.Id == p.Id)).ToList();
+        //foreach (var priority in prioritiesToRemove)
+        //{
+        //    ticketEntity.Priorities.Remove(priority);
+        //}
 
-    //    // Remove deleted statuses
-    //    var statusesToRemove = ticketEntity.Statuses.Where(s => !ticket.Statuses.Any(s2 => s2.Id == s.Id)).ToList();
-    //    foreach (var status in statusesToRemove)
-    //    {
-    //        ticketEntity.Statuses.Remove(status);
-    //    }
+        //// Update statuses
+        //foreach (var status in ticket.Statuses)
+        //{
+        //    if (status.Id == 0)
+        //    {
+        //        // New status, add to collection
+        //        ticketEntity.Statuses.Add(new TicketStatus
+        //        {
+        //            StatusName = status.StatusName
+        //        });
+        //    }
+        //    else
+        //    {
+        //        // Existing status, update its properties
+        //        var statusEntity = ticketEntity.Statuses.FirstOrDefault(s => s.Id == status.Id);
+        //        if (statusEntity != null)
+        //        {
+        //            statusEntity.StatusName = status.StatusName;
+        //        }
+        //    }
+        //}
 
-    //    await _context.SaveChangesAsync();
-    //}
+        // Remove deleted statuses
+        //var statusesToRemove = ticketEntity.Statuses.Where(s => !ticket.Statuses.Any(s2 => s2.Id == s.Id)).ToList();
+        //foreach (var status in statusesToRemove)
+        //{
+        //    ticketEntity.Statuses.Remove(status);
+        //}
+
+        await _context.SaveChangesAsync();
+    }
 
 
 
