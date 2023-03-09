@@ -43,15 +43,55 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             _userId = userId;
             ShowUser(userId);
         }
-      
+        //private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var ticketDetailModel = (TicketDetailModel)DataContext;
+        //    var selectedTicket = ticketDetailModel.SelectedTicket;
+
+        //    ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
+
+        //    var publicTicket = new Ticket()
+        //    {
+        //        Id = ticketDetailModel.SelectedTicket.Id,
+        //        UsersId = ticketDetailModel.SelectedTicket.UsersId,
+        //        Title = ticketDetailModel.SelectedTicket.Title,
+        //        Description = ticketDetailModel.SelectedTicket.Description,
+        //        TicketCategory = ticketDetailModel.SelectedTicket.TicketCategory,
+        //        CreatedAt = ticketDetailModel.SelectedTicket.CreatedAt,
+        //        LastUpdatedAt = ticketDetailModel.SelectedTicket.LastUpdatedAt,
+        //        ClosedAt = ticketDetailModel.SelectedTicket.ClosedAt,
+        //        Priorities = new List<TicketPriorities>(),
+        //        Statuses = new List<TicketStatuses>()
+        //    };
+
+        //    foreach (var priority in selectedTicket.Priorities)
+        //    {
+        //        publicTicket.Priorities.Add(new TicketPriorities
+        //        {
+        //            Id = priority.Id,
+        //            PriorityName = priority.PriorityName
+        //        });
+        //    }
+
+        //    foreach (var status in selectedTicket.Statuses)
+        //    {
+        //        publicTicket.Statuses.Add(new TicketStatuses
+        //        {
+        //            Id = status.Id,
+        //            TicketId = status.TicketId,
+        //            StatusName = status.StatusName
+        //        });
+        //    }
+
+        //    await ticketDetailModel.SaveTicket(publicTicket);
+        //}
+
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var ticketDetailModel = (TicketDetailModel)DataContext;
-            var selectedTicket = ticketDetailModel.SelectedTicket;
-          
             ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
 
-            var publicTicket = new PublicTicket()
+            var publicTicket = new Ticket()
             {
                 Id = ticketDetailModel.SelectedTicket.Id,
                 UsersId = ticketDetailModel.SelectedTicket.UsersId,
@@ -60,11 +100,47 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
                 TicketCategory = ticketDetailModel.SelectedTicket.TicketCategory,
                 CreatedAt = ticketDetailModel.SelectedTicket.CreatedAt,
                 LastUpdatedAt = ticketDetailModel.SelectedTicket.LastUpdatedAt,
-                ClosedAt = ticketDetailModel.SelectedTicket.ClosedAt
+                ClosedAt = ticketDetailModel.SelectedTicket.ClosedAt,
+                Priorities = new List<TicketPriorities>(),
+                Statuses = new List<TicketStatuses>(),
+                Comments = new List<TicketComments>()
             };
+
+            foreach (var priority in ticketDetailModel.SelectedTicket.Priorities)
+            {
+                publicTicket.Priorities.Add(new TicketPriorities
+                {
+                    Id = priority.Id,
+                    PriorityName = priority.PriorityName
+                });
+            }
+
+            foreach (var status in ticketDetailModel.SelectedTicket.Statuses)
+            {
+                publicTicket.Statuses.Add(new TicketStatuses
+                {
+                    Id = status.Id,
+                    TicketId = status.TicketId,
+                    StatusName = status.StatusName
+                });
+            }
+
+            foreach (var comment in ticketDetailModel.SelectedTicket.Comments)
+            {
+                publicTicket.Comments.Add(new TicketComments
+                {
+                    Id = comment.Id,
+                    CommentsText = comment.CommentsText,
+               
+                });
+                Debug.WriteLine(comment.CommentsText);
+            }
+      
 
             await ticketDetailModel.SaveTicket(publicTicket);
         }
+
+
 
 
         private void ShowDefaultView()

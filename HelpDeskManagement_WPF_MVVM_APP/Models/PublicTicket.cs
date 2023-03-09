@@ -29,7 +29,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.Models;
 //        CreatedAt = ticket.CreatedAt;
 //        LastUpdatedAt = ticket.LastUpdatedAt;
 //        ClosedAt = ticket.ClosedAt;
-//        //    Priorities = ticket.Priorities;
+//        //   Priorities = ticket.Priorities;
 //        //    Statuses = ticket.Statuses;
 //        //}
 //    }
@@ -46,12 +46,14 @@ public class PublicTicket
     public DateTime? CreatedAt { get; set; }
     public DateTime? LastUpdatedAt { get; set; }
     public DateTime? ClosedAt { get; set; }
+    //public List<TicketPriorities> Priorities { get; set; }
+    public List<Statuses> Statuses { get; set; }
 
-    public PublicTicket()
+    internal PublicTicket()
     {
     }
 
-    public PublicTicket(PublicTicket ticket)
+    internal PublicTicket(Ticket ticket)
     {
         Id = ticket.Id;
         UsersId = ticket.UsersId;
@@ -61,5 +63,6 @@ public class PublicTicket
         CreatedAt = ticket.CreatedAt;
         LastUpdatedAt = ticket.LastUpdatedAt;
         ClosedAt = ticket.ClosedAt;
-    }
+       // Statuses = ticket.Statuses;
+}
 }

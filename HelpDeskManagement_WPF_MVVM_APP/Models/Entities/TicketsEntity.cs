@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-internal class TicketsEntity
+public class TicketsEntity
 {
     private readonly DataContext _context;
 

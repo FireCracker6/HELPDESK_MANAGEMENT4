@@ -1,4 +1,4 @@
-﻿internal class TicketPriorities
+﻿public class TicketPriorities
 {
     public int Id { get; set; } 
     public int TicketId { get; set; }

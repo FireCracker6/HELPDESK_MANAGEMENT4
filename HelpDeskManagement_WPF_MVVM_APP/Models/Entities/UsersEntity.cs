@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using HelpDeskManagement_WPF_MVVM_APP.Models;
 using Microsoft.EntityFrameworkCore;
 
-internal class UsersEntity
+public class UsersEntity
 {
 
     public Guid Id { get; set; } = Guid.NewGuid();

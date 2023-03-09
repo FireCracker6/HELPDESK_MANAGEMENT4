@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HelpDeskManagement_WPF_MVVM_APP.Models;
 
-internal class Ticket
+public class Ticket
 {
     public int Id { get; set; }
     public Guid UserId { get; set; }
@@ -27,7 +27,7 @@ internal class Ticket
 
 
 }
-internal class User
+public class User
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; } = null!;

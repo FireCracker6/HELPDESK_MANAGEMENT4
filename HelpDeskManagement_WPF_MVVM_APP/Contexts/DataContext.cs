@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskManagement_WPF_MVVM_APP.Contexts;
 
-internal class DataContext : DbContext
+public class DataContext : DbContext
 {
     #region constructors & overrides
 

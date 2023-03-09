@@ -8,6 +8,7 @@ using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,7 +78,7 @@ public partial class TicketDetailModel : ObservableRecipient
         await UpdateTicketAsync(SelectedTicket);
     }
 
-    public async Task SaveTicket(PublicTicket ticket)
+    public async Task SaveTicket(Ticket ticket)
     {
         if (ticket == null) return;
 
@@ -94,9 +95,28 @@ public partial class TicketDetailModel : ObservableRecipient
         ticketEntity.CreatedAt = ticket.CreatedAt;
         ticketEntity.LastUpdatedAt =DateTime.Now;
         ticketEntity.ClosedAt = ticket.ClosedAt;
-        //ticketEntity.Priorities = ticket.Priorities;
-        //ticketEntity.Statuses = ticket.Statuses;
-
+        ticketEntity.Priorities = ticket.Priorities.Select(p => new TicketPriorities
+        {
+            Id = p.Id,
+            PriorityName = p.PriorityName
+        }).ToList();
+        ticketEntity.Statuses = ticket.Statuses.Select(s => new TicketStatuses
+        {
+            Id = s.Id,
+            TicketId = s.TicketId,
+            StatusName = s.StatusName
+        }).ToList();
+        // Update the Comments collection
+        ticketEntity.Comments.Clear(); // remove all existing comments
+        foreach (var comment in ticket.Comments)
+        {
+            ticketEntity.Comments.Add(new TicketComments
+            {
+                Id = comment.Id,
+                CommentsText = comment.CommentsText,
+                CreatedAt = comment.CreatedAt
+            });
+        }
         await _context.SaveChangesAsync();
     }
 
@@ -118,7 +138,10 @@ public partial class TicketDetailModel : ObservableRecipient
         ticketEntity.ClosedAt = ticket.ClosedAt;
         ticketEntity.Priorities = ticket.Priorities;
         ticketEntity.Statuses = ticket.Statuses;
+        ticketEntity.Comments= ticket.Comments;
 
+
+        Debug.WriteLine(ticketEntity.Comments.Count());
         await _context.SaveChangesAsync();
     }
 

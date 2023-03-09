@@ -1,7 +1,8 @@
-﻿internal class Statuses
+﻿public class Statuses
 {
-    public int Id { get; set;  }
-    public int TicketId { get; set;  }
+    public int Id { get; set; }
+    public int TicketId { get; set; }
     public string StatusName { get; set; } = null!;
     public TicketsEntity Tickets { get; set; } = null!;
 }
+

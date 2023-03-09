@@ -89,27 +89,8 @@
                             <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
                             <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt}" />
 
-                            <DataGridTextColumn Header="Comments">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0}{1}">
-                                        <Binding Path="Comments.Count" />
-                                        <Binding Source=" comment(s)" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
-                            <DataGridTemplateColumn Header="Comments">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ItemsControl ItemsSource="{Binding Comments}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding CommentsText}" />
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments[0].CommentsText}" />
+
                             <DataGridTextColumn Header="Priority" Binding="{Binding Path=Priorities[0].PriorityName}" />
                             <DataGridTextColumn Header="Status" Binding="{Binding Path=Statuses[0].StatusName}" />
                         </DataGrid.Columns>

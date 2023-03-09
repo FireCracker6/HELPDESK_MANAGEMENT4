@@ -1,4 +1,4 @@
-﻿internal class TicketStatuses
+﻿public class TicketStatuses
 {
     public int Id { get; set; } 
     public int TicketId { get; set; }
