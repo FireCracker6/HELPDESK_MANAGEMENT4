@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using HelpDeskManagement_WPF_MVVM_APP.Models;
 using HelpDeskManagement_WPF_MVVM_APP.Services;
 
 namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
@@ -28,7 +29,10 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
             ShowAllUsers();
             ShowAllTickets();
+            // Hook up the SelectionChanged event for the ticketDataGrid
+            ticketDataGrid.SelectionChanged += TicketDataGrid_SelectionChanged;
 
+       
         }
         private async Task ShowAllUsers()
         {
@@ -43,7 +47,15 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             myTicketDataGrid.ItemsSource = tickets;
             Debug.WriteLine($"Tickets found {tickets.Count()}");
         }
+        private void TicketDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Get a reference to the Frame control that hosts this UserControl
+            var frame = (Frame)Window.GetWindow(this).FindName("myFrame");
 
+            // Navigate to the TicketDetails view with the selected ticket as a parameter
+            var ticket = (Ticket)ticketDataGrid.SelectedItem;
+            frame.Navigate(typeof(TicketDetails), ticket);
+        }
 
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -133,6 +145,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             // Navigate to the default view
             frame.Navigate(typeof(TicketsView));
         }
+
 
 
 

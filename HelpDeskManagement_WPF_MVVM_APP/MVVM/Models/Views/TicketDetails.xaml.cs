@@ -42,49 +42,10 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             _userService = new UserService();
             _userId = userId;
             ShowUser(userId);
+          
+            contentControl.Content = myFrame;
         }
-        //private async void SaveButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var ticketDetailModel = (TicketDetailModel)DataContext;
-        //    var selectedTicket = ticketDetailModel.SelectedTicket;
-
-        //    ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
-
-        //    var publicTicket = new Ticket()
-        //    {
-        //        Id = ticketDetailModel.SelectedTicket.Id,
-        //        UsersId = ticketDetailModel.SelectedTicket.UsersId,
-        //        Title = ticketDetailModel.SelectedTicket.Title,
-        //        Description = ticketDetailModel.SelectedTicket.Description,
-        //        TicketCategory = ticketDetailModel.SelectedTicket.TicketCategory,
-        //        CreatedAt = ticketDetailModel.SelectedTicket.CreatedAt,
-        //        LastUpdatedAt = ticketDetailModel.SelectedTicket.LastUpdatedAt,
-        //        ClosedAt = ticketDetailModel.SelectedTicket.ClosedAt,
-        //        Priorities = new List<TicketPriorities>(),
-        //        Statuses = new List<TicketStatuses>()
-        //    };
-
-        //    foreach (var priority in selectedTicket.Priorities)
-        //    {
-        //        publicTicket.Priorities.Add(new TicketPriorities
-        //        {
-        //            Id = priority.Id,
-        //            PriorityName = priority.PriorityName
-        //        });
-        //    }
-
-        //    foreach (var status in selectedTicket.Statuses)
-        //    {
-        //        publicTicket.Statuses.Add(new TicketStatuses
-        //        {
-        //            Id = status.Id,
-        //            TicketId = status.TicketId,
-        //            StatusName = status.StatusName
-        //        });
-        //    }
-
-        //    await ticketDetailModel.SaveTicket(publicTicket);
-        //}
+      
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -166,7 +127,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
                 Debug.WriteLine($"Number of tickets retrieved for user with id {userId}: {tickets}");
 
-                _myDetailsDataGrid.ItemsSource = tickets;
+             
                 ticketDataGrid.ItemsSource = tickets;
             }
             else
@@ -178,8 +139,52 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
         private void MyDetailsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var ticketDetailModel = (TicketDetailModel)DataContext;
-            ticketDetailModel.SelectedTicket = (Ticket)_myDetailsDataGrid.SelectedItem;
+            ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
         }
+        private void TicketDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+            myFrame.Content = new TicketDetailModel(_userId);
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get a reference to the parent Frame control
+            Frame parentFrame = null!;
+            DependencyObject parent = VisualTreeHelper.GetParent(this);
+            while (parent != null && parentFrame == null)
+            {
+                parentFrame = parent as Frame;
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            if (parentFrame != null && parentFrame.NavigationService.CanGoBack)
+            {
+                // If there is, navigate back to the previous page
+                parentFrame.NavigationService.GoBack();
+            }
+            else
+            {
+                // If there isn't, show an error message or do nothing
+                MessageBox.Show("There is no previous page to navigate back to.");
+            }
+        }
+
+
+
+        public static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            // Get parent item
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+            // We’ve reached the end of the tree
+            if (parentObject == null) return null!;
+
+            // Check if the parent matches the type we’re looking for
+            if (parentObject is T parent) return parent;
+
+            // Use recursion to proceed with next level
+            return FindVisualParent<T>(parentObject);
+        }
+
 
 
 
