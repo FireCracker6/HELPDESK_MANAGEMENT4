@@ -31,8 +31,9 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             ShowAllTickets();
             // Hook up the SelectionChanged event for the ticketDataGrid
             ticketDataGrid.SelectionChanged += TicketDataGrid_SelectionChanged;
-
-       
+            myDataGrid.Visibility = Visibility.Visible;
+            myTicketDataGrid.Visibility = Visibility.Visible;
+            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
         private async Task ShowAllUsers()
         {
@@ -109,8 +110,8 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
                 // Navigate to the new UserControl with the UserEntity object
                 frame.NavigationService.Navigate(new TicketDetails(userEntity.Id));
-                myDataGrid.Visibility = Visibility.Collapsed;
-                myTicketDataGrid.Visibility = Visibility.Collapsed;
+                myDataGrid.Visibility = Visibility.Visible;
+                myTicketDataGrid.Visibility = Visibility.Visible;
             }
             else
             {

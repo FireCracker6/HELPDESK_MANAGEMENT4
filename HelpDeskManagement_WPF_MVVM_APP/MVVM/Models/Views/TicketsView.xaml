@@ -154,8 +154,8 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <Frame x:Name="myFrame"/>
-        
+            <Frame x:Name="myFrame" NavigationUIVisibility="Hidden"/>
+
         </Grid>
         <DataGrid x:Name="ticketDataGrid" Grid.Row="5" Padding="20" AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" SelectionChanged="TicketDataGrid_SelectionChanged">
             <!-- ... -->

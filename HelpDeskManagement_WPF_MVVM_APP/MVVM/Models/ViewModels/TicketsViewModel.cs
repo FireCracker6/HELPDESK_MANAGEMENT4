@@ -20,7 +20,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels
     {
       
         [ObservableProperty]
-        private string pageTitle = "Tickets View";
+        private string pageTitle = "Tickets Management";
 
 
       

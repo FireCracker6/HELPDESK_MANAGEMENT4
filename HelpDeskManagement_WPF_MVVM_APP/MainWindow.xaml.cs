@@ -23,7 +23,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP
         public MainWindow()
         {
             InitializeComponent();
-         //   MainFrame.Navigate(new Uri("/MVVM/Models/Views/TicketsView.xaml", UriKind.Relative));
+         //  MainFrame.Navigate(new Uri("/MVVM/Models/Views/TicketsView.xaml", UriKind.Relative));
         }
     }
 }

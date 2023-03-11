@@ -81,7 +81,6 @@ C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMEN
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\AddTicket.g.cs
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\TicketDetails.g.cs
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\TicketsView.g.cs
-C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\UpdateTicket.g.cs
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\HelpDeskManagement_WPF_MVVM_APP_Content.g.cs
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
@@ -140,7 +139,6 @@ C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMEN
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\AddTicket.baml
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\TicketDetails.baml
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\TicketsView.baml
-C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\MVVM\Models\Views\UpdateTicket.baml
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\HelpDeskManagement_WPF_MVVM_APP.g.resources
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\HelpDeskManagement_WPF_MVVM_APP.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\obj\Debug\net7.0-windows\HelpDeskManagement_WPF_MVVM_APP.AssemblyInfoInputs.cache

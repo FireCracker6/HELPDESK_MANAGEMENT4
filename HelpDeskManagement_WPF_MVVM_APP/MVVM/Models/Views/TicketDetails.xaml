@@ -7,82 +7,231 @@
              xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
              xmlns:viewmodels="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="2000" >
     <UserControl.DataContext>
         <viewmodels:TicketDetailModel />
     </UserControl.DataContext>
-    
+
     <Grid Margin="40">
-        <Grid.RowDefinitions >
+        <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="500"/>
             <RowDefinition Height="500"/>
-
-
-
         </Grid.RowDefinitions>
-      
-            <TextBlock Grid.Row="1" x:Name="_ticketOwnerName" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="1" x:Name="_ticketOwnerName"/>
+
+        <Grid Grid.Row="1">
+            <Frame x:Name="myFrame" NavigationUIVisibility="Hidden"/>
+        </Grid>
+        <TabControl Grid.Row="0" x:Name="_tabControl" Grid.Column="0" Grid.ColumnSpan="2" Background="#3f3f3f">
+            <TabItem Header="Ticket Details" Background="#3f3f3f">
+                <TabItem.Content>
+                    <StackPanel DataContext="{Binding DataContext, ElementName=TicketDetailModel}"  Background="#3f3f3f" >
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DataGrid x:Name="ticketDataGrid" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="FontWeight"  Value="Bold" />
+                                        <Setter Property="Background" Value="#b5cedf" />
+                                        <Setter Property="Padding" Value="3" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="Foreground" Value="#3f3f3f" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="Height" Value="200" />
+                                        <Setter Property="BorderThickness" Value="2" />
+                                        <Setter Property="BorderBrush" Value="Gray" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Background" Value="Black" />
+                                        <Setter Property="Foreground" Value="Azure" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                                                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                                            <ContentPresenter.Resources>
+                                                                <Style TargetType="{x:Type DataGridCell}">
+                                                                    <Setter Property="Padding" Value="10" />
+                                                                </Style>
+                                                            </ContentPresenter.Resources>
+                                                        </ContentPresenter>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="Background" Value="LightBlue"/>
+                                                <Setter Property="Foreground" Value="DeepPink"/>
+                                            </Trigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>
+                                
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ticket ID" Binding="{Binding Id}" Width="148" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="200" />
+                                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="150" />
+                                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="150" />
+                                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="150" />
+                                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextWrapping" Value="Wrap" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt}" Width="150" />
+                                    <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments[0].CommentsText}" Width="300">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextWrapping" Value="Wrap" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
 
 
-        <ContentControl x:Name="contentControl">
-            <Frame x:Name="myFrame" />
-        </ContentControl>
+                                    <DataGridTemplateColumn Header="Priority" Width="120">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Priorities[0].PriorityName}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding Path=DataContext.PriorityList, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+          SelectedItem="{Binding Path=Priorities[0].PriorityName}"
+          SelectedValuePath="."
+          SelectedValue="{Binding Path=Priorities[0].PriorityName}"
+          Width="115"
+          Height="25"
+          Foreground="#3f3f3f"
+          VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="0">
+                                                    <ComboBox.Template>
+                                                        <ControlTemplate TargetType="ComboBox">
+                                                            <Grid>
+                                                                <ToggleButton x:Name="ToggleButton"
+                              Background="Black"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              Foreground="{TemplateBinding Foreground}"
+                              Grid.Column="2"
+                              Focusable="False"
+                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                              ClickMode="Press">
+                                                                    <ToggleButton.Template>
+                                                                        <ControlTemplate TargetType="ToggleButton">
+                                                                            <Grid>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition />
+                                                                                    <ColumnDefinition Width="20" />
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <Border x:Name="Border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        CornerRadius="0" />
+                                                                                <Path x:Name="Arrow"
+                                      Grid.Column="1"
+                                      Fill="{TemplateBinding Foreground}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M 0 0 L 4 4 L 8 0 Z" />
+                                                                            </Grid>
+                                                                        </ControlTemplate>
+                                                                    </ToggleButton.Template>
+                                                                </ToggleButton>
+                                                                <ContentPresenter x:Name="ContentSite"
+                                  IsHitTestVisible="False"
+                                  Content="{TemplateBinding SelectionBoxItem}"
+                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                  Margin="{TemplateBinding Padding}"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left" />
+                                                                <Popup x:Name="Popup"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                       Placement="Bottom"
+                       PopupAnimation="Slide">
+                                                                    <Grid x:Name="DropDown"
+                          Background="DarkGray"
+                          SnapsToDevicePixels="True">
+                                                                        <Border x:Name="DropDownBorder"
+                                BorderThickness="1"
+                               
+                                 />
+                                                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                                            <StackPanel IsItemsHost="True" />
+                                                                        </ScrollViewer>
+                                                                    </Grid>
+                                                                </Popup>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </ComboBox.Template>
+                                                </ComboBox>
+
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
 
 
+                                
+                                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Statuses[0].StatusName}" Width="120"/>
+                                </DataGrid.Columns>
+                                
+                                
+                            </DataGrid>
+                            
+                            <!--<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <Button Content="SAVE UPDATES" Padding="5" Margin="5"   Width="Auto" MaxWidth="{Binding ActualWidth, ElementName=myDataGrid}" Click="SaveButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <Button Content="CLOSE" Padding="5" Margin="5" Width="980" Click="BackButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded"/>
+                            </StackPanel>-->
+                            <Grid Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-        <TabControl Grid.Row="2" Width="1200">
-            <TabItem Header="Details">
-                <StackPanel DataContext="{Binding DataContext, ElementName=TicketDetailModel}">
-                    <DataGrid x:Name="ticketDataGrid"
-          ItemsSource="{Binding Tickets}"
-          SelectedItem="{Binding SelectedTicket, Mode=TwoWay}"
-          AutoGenerateColumns="False"
-          CanUserAddRows="False"
-          SelectionChanged="MyDetailsDataGrid_SelectionChanged">
-                        <DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="Height" Value="200" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-
-                        </DataGrid.CellStyle>
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Ticket ID" Binding="{Binding Id}" />
-                            <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
-                            <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
-                            <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
-                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                            <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt}" />
-
-                            <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments[0].CommentsText}" />
-
-                            <DataGridTextColumn Header="Priority" Binding="{Binding Path=Priorities[0].PriorityName}" />
-                            <DataGridTextColumn Header="Status" Binding="{Binding Path=Statuses[0].StatusName}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Grid HorizontalAlignment="Center" Width="1200" Margin="10" Background="BurlyWood">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition MaxWidth="600" Width="*" />
-
-                            <ColumnDefinition MaxWidth="600" Width="*" />
-
-                         
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Save Updates"  Padding="2" Margin="5" Width="400"   Click="SaveButton_Click" HorizontalAlignment="left"  />
-                        <Button Grid.Column="2" Content="Go Back" Padding="2" Margin="5" Width="400"  Click="BackButton_Click" HorizontalAlignment="Right" />
-
-                    </Grid>
-                </StackPanel>
-                
+                                <Button Grid.Column="0" Content="SAVE UPDATES" Padding="5" Margin="5" Width="890" Click="SaveButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded" />
+                                <Button Grid.Column="1" Content="CLOSE" Padding="5" Margin="5" Width="890" Click="BackButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded"/>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="3">
-            
-        </StackPanel>
     </Grid>
-
 </UserControl>

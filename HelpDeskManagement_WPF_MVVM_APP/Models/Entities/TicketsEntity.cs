@@ -26,6 +26,7 @@ public class TicketsEntity
     public virtual ICollection<TicketPriorities> Priorities { get; set; } = new HashSet<TicketPriorities>();
     public virtual ICollection<TicketStatuses> Statuses { get; set; } = new HashSet<TicketStatuses>();
     public virtual UsersEntity Users { get; set; } = null!;
+
     public static implicit operator Ticket(TicketsEntity entity)
     {
         return new Ticket

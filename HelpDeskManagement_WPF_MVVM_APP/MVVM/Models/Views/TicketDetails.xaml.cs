@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Xml.Linq;
 using CommunityToolkit.Mvvm.Input;
 using HelpDeskManagement_WPF_MVVM_APP.Contexts;
 using HelpDeskManagement_WPF_MVVM_APP.Models;
@@ -29,8 +30,9 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
     {
 
         private readonly UserService _userService;
+        private readonly TicketService _ticketService;
         private readonly Guid _userId;
-
+        private DataGrid _ticketDataGrid;
 
 
         public TicketDetails(Guid userId)
@@ -38,17 +40,24 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             InitializeComponent();
 
             DataContext = new TicketDetailModel(userId);
+            
 
+            _ticketService = new TicketService();
+        
             _userService = new UserService();
             _userId = userId;
             ShowUser(userId);
+         
+            _ticketDataGrid = ticketDataGrid; // Assign the ticketDataGrid to the field
           
-            contentControl.Content = myFrame;
+            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+         
         }
-      
+
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            Debug.WriteLine("Iam clicked!");
             var ticketDetailModel = (TicketDetailModel)DataContext;
             ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
 
@@ -92,15 +101,14 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
                 {
                     Id = comment.Id,
                     CommentsText = comment.CommentsText,
-               
+
                 });
                 Debug.WriteLine(comment.CommentsText);
             }
-      
 
-            await ticketDetailModel.SaveTicket(publicTicket);
+
+            await ticketDetailModel.SaveTicket(publicTicket, _ticketDataGrid);
         }
-
 
 
 
@@ -129,6 +137,14 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
              
                 ticketDataGrid.ItemsSource = tickets;
+
+                var ticketsView = FindVisualChild<TicketsView>(Application.Current.MainWindow);
+
+                // Set the visibility of the grids to Visible
+                ticketsView.myDataGrid.Visibility = Visibility.Collapsed;
+                ticketsView.myTicketDataGrid.Visibility = Visibility.Collapsed;
+               
+
             }
             else
             {
@@ -140,50 +156,58 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
         {
             var ticketDetailModel = (TicketDetailModel)DataContext;
             ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
+          
+
         }
-        private void TicketDetails_Loaded(object sender, RoutedEventArgs e)
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            myFrame.Content = new TicketDetailModel(_userId);
+            var ticketDetailModel = (TicketDetailModel)DataContext;
+            ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
         }
+     
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get a reference to the parent Frame control
-            Frame parentFrame = null!;
-            DependencyObject parent = VisualTreeHelper.GetParent(this);
-            while (parent != null && parentFrame == null)
-            {
-                parentFrame = parent as Frame;
-                parent = VisualTreeHelper.GetParent(parent);
-            }
+            var frame = FindVisualChild<Frame>(this);
+            // Navigate back to the TicketsView
+          
+            // Navigate to the new UserControl with the UserEntity object
+            frame.NavigationService.Navigate(new TicketsView());
 
-            if (parentFrame != null && parentFrame.NavigationService.CanGoBack)
-            {
-                // If there is, navigate back to the previous page
-                parentFrame.NavigationService.GoBack();
-            }
-            else
-            {
-                // If there isn't, show an error message or do nothing
-                MessageBox.Show("There is no previous page to navigate back to.");
-            }
+            ticketDataGrid.Visibility = Visibility.Collapsed;
+            _tabControl.Visibility = Visibility.Collapsed;
+
+            // Set the visibility of the grids to Visible
+          
+            var ticketsView = FindVisualChild<TicketsView>(Application.Current.MainWindow);
+
+            // Set the visibility of the grids to Visible
+            ticketsView.myDataGrid.Visibility = Visibility.Visible;
+            ticketsView.myTicketDataGrid.Visibility = Visibility.Visible;
+
         }
 
 
 
-        public static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
-            // Get parent item
-            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
-
-            // We’ve reached the end of the tree
-            if (parentObject == null) return null!;
-
-            // Check if the parent matches the type we’re looking for
-            if (parentObject is T parent) return parent;
-
-            // Use recursion to proceed with next level
-            return FindVisualParent<T>(parentObject);
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is T)
+                    return (T)child;
+                else
+                {
+                    var childOfChild = FindVisualChild<T>(child!);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null!;
         }
+
+
+
+
 
 
 
