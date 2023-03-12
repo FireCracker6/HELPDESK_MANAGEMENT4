@@ -28,16 +28,18 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels
             }
         }
 
-        private string _selectedPriority;
-        public string SelectedPriority
+        private List<string> _statusesList;
+        public List<string> StatusesList
         {
-            get { return _selectedPriority; }
+            get { return _statusesList; }
             set
             {
-                _selectedPriority = value;
-                OnPropertyChanged(nameof(SelectedPriority));
+                _statusesList = value;
+                OnPropertyChanged(nameof(StatusesList));
             }
         }
+
+
 
         public TicketDetailModel()
         {
@@ -55,6 +57,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels
             _ = LoadTicketsAsync(userId);
             _context = new DataContext();
             PriorityList = new List<string> { "High", "Medium", "Low" };
+            StatusesList = new List<string> { "Opened", "Updated", "Closed" };
         }
 
         private async Task LoadTicketsAsync(Guid userId)

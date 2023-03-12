@@ -129,18 +129,105 @@
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
                                                 <ComboBox ItemsSource="{Binding Path=DataContext.PriorityList, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-          SelectedItem="{Binding Path=Priorities[0].PriorityName}"
-          SelectedValuePath="."
-          SelectedValue="{Binding Path=Priorities[0].PriorityName}"
-          Width="115"
-          Height="25"
-          Foreground="#3f3f3f"
-          VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="0">
+                              SelectedItem="{Binding Path=Priorities[0].PriorityName}"
+                              SelectedValuePath="."
+                              SelectedValue="{Binding Path=Priorities[0].PriorityName}"
+                              Width="115"
+                              Height="25"
+                              Foreground="white"
+                              VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="0">           
                                                     <ComboBox.Template>
                                                         <ControlTemplate TargetType="ComboBox">
                                                             <Grid>
                                                                 <ToggleButton x:Name="ToggleButton"
-                              Background="Black"
+                              Background="#3f3f3f"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              Foreground="{TemplateBinding Foreground}"
+                              Grid.Column="2"
+                              Focusable="False"
+                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                              ClickMode="Press">
+                                                                    <ToggleButton.Template>
+                                                                        <ControlTemplate TargetType="ToggleButton">
+                                                                            <Grid>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition />
+                                                                                    <ColumnDefinition Width="20" />
+                                                                                </Grid.ColumnDefinitions>
+                                                                                <Border x:Name="Border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        CornerRadius="0" />
+                                                                                <Path x:Name="Arrow"
+                                      Grid.Column="1"
+                                      Fill="{TemplateBinding Foreground}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M 0 0 L 4 4 L 8 0 Z" />
+                                                                            </Grid>
+                                                                        </ControlTemplate>
+                                                                    </ToggleButton.Template>
+                                                                </ToggleButton>
+                                                                <ContentPresenter x:Name="ContentSite"
+                                  IsHitTestVisible="False"
+                                  Content="{TemplateBinding SelectionBoxItem}"
+                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                  Margin="{TemplateBinding Padding}"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left" />
+                                                                <Popup x:Name="Popup"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                       Placement="Bottom"
+                       PopupAnimation="Slide">
+                                                                    <Grid x:Name="DropDown"
+                          Background="DarkGray"
+                          SnapsToDevicePixels="True">
+                                                                        <Border x:Name="DropDownBorder"
+                                BorderThickness="1"
+                               
+                                 />
+                                                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                                                            <StackPanel IsItemsHost="True" />
+                                                                        </ScrollViewer>
+                                                                    </Grid>
+                                                                </Popup>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </ComboBox.Template>
+                                                </ComboBox>
+
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+
+<!--Statuses dropdown-->
+
+                                    <DataGridTemplateColumn Header="Status" Width="120">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Statuses[0].StatusName}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding Path=DataContext.StatusesList, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                              SelectedItem="{Binding Path=Statuses[0].StatusName}"
+                              SelectedValuePath="."
+                              SelectedValue="{Binding Path=Statuses[0].StatusName}"
+                              Width="115"
+                              Height="25"
+                              Foreground="white"
+                              VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="0">
+                                                    <ComboBox.Template>
+                                                        <ControlTemplate TargetType="ComboBox">
+                                                            <Grid>
+                                                                <ToggleButton x:Name="ToggleButton"
+                              Background="#3f3f3f"
                               BorderBrush="{TemplateBinding BorderBrush}"
                               BorderThickness="{TemplateBinding BorderThickness}"
                               Foreground="{TemplateBinding Foreground}"
@@ -206,7 +293,6 @@
                                     </DataGridTemplateColumn>
 
 
-                                
                                     <DataGridTextColumn Header="Status" Binding="{Binding Path=Statuses[0].StatusName}" Width="120"/>
                                 </DataGrid.Columns>
                                 

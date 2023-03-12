@@ -48,7 +48,7 @@
 
             <Label Content="Set Status..." FontWeight="Medium" />
             <ComboBox SelectedItem="{Binding TicketStatus}" x:Name="StatusComboBox" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
-                <ComboBoxItem>In Progress</ComboBoxItem>
+                <ComboBoxItem>Opened</ComboBoxItem>
                 <ComboBoxItem>Updated</ComboBoxItem>
                 <ComboBoxItem>Closed</ComboBoxItem>
             </ComboBox>
