@@ -45,9 +45,19 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
         {
             var ticketService = new TicketService();
             var tickets = await ticketService.GetAllAsync();
+            myTicketDataGrid.ItemsSource = null;
             myTicketDataGrid.ItemsSource = tickets;
             Debug.WriteLine($"Tickets found {tickets.Count()}");
         }
+        public async Task UpdateTickets()
+        {
+            var ticketService = new TicketService();
+            var tickets = await ticketService.GetAllAsync();
+            myTicketDataGrid.ItemsSource = null;
+            myTicketDataGrid.ItemsSource = tickets;
+            Debug.WriteLine($"Tickets found {tickets.Count()}");
+        }
+
         private void TicketDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get a reference to the Frame control that hosts this UserControl

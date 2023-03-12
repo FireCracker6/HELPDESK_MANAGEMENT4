@@ -63,15 +63,15 @@
                     </DataGrid.ColumnHeaderStyle>
                    
                     <DataGrid.Columns>
-                    
 
 
-                        <DataGridTextColumn  Width="280"  Header="User ID" Binding="{Binding Id}"   />
+
+                        <DataGridTextColumn  Width="280"  Header="User ID" Binding="{Binding Id}" IsReadOnly="True"  />
                         <DataGridTextColumn Width="*"  Header="First Name" Binding="{Binding FirstName}"  />
                         <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}"  />
                         <DataGridTextColumn Width="*" Header="Email-Address" Binding="{Binding Email}"  />
                         <DataGridTextColumn Width="100" Header="Phone Number" Binding="{Binding PhoneNumber}"  />
-                        <DataGridTextColumn Width="*" Header="Created At" Binding="{Binding CreatedAt}"  />
+                        <DataGridTextColumn Width="*" Header="Created At" Binding="{Binding CreatedAt}" IsReadOnly="True" />
 
 
                         <DataGridTemplateColumn Header="Remove User">
@@ -121,14 +121,23 @@
 
 
 
-                        <DataGridTextColumn  Width="100"  Header="Ticket ID" Binding="{Binding Id}"   />
-                        <DataGridTextColumn  Width="280"  Header="User ID" Binding="{Binding UsersId}"   />
-                        <DataGridTextColumn  Width="*"  Header="Title" Binding="{Binding Title}"   />
-                        <DataGridTextColumn  Width="150"  Header="Ticket Category" Binding="{Binding TicketCategory}"   />
-                        <DataGridTextColumn Width="*"  Header="Description" Binding="{Binding Description}"  />
-                        <DataGridTextColumn Width="*" Header="Created At" Binding="{Binding CreatedAt}"  />
-                        <DataGridTextColumn Width="150" Header="Last Updated At" Binding="{Binding LastUpdatedAt}"  />
-                        <DataGridTextColumn Width="100" Header="Closed At" Binding="{Binding ClosedAt}"  />
+                        <DataGridTextColumn  Width="100"  Header="Ticket ID" Binding="{Binding Id}" IsReadOnly="True"  />
+                        <DataGridTextColumn  Width="280"  Header="User ID" Binding="{Binding UsersId}"  IsReadOnly="True" />
+                        <DataGridTextColumn Width="*" Header="Email-Address" Binding="{Binding Email}" IsReadOnly="True"  />
+                        <DataGridTextColumn  Width="*"  Header="Title" Binding="{Binding Title}"  IsReadOnly="True" />
+                  
+                        <DataGridTextColumn  Width="150"  Header="Ticket Category" Binding="{Binding TicketCategory}" IsReadOnly="True"   />
+                        <DataGridTextColumn Width="*"  Header="Description" Binding="{Binding Description}" IsReadOnly="True" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Width="*" Header="Created At" Binding="{Binding CreatedAt}" IsReadOnly="True" />
+                        <DataGridTextColumn Width="150" Header="Last Updated At" Binding="{Binding LastUpdatedAt}"  IsReadOnly="True"/>
+                        <DataGridTextColumn Width="100" Header="Closed At" Binding="{Binding ClosedAt}" IsReadOnly="True" />
                       
 
                         <DataGridTemplateColumn Header="Remove Ticket">

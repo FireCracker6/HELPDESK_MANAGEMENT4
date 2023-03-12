@@ -45,7 +45,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <DataGrid x:Name="ticketDataGrid" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
+                            <DataGrid x:Name="ticketDataGrid" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="FontWeight"  Value="Bold" />
@@ -293,7 +293,7 @@
                                     </DataGridTemplateColumn>
 
 
-                                    <DataGridTextColumn Header="Status" Binding="{Binding Path=Statuses[0].StatusName}" Width="120"/>
+                                
                                 </DataGrid.Columns>
                                 
                                 
@@ -311,8 +311,12 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Button Grid.Column="0" Content="SAVE UPDATES" Padding="5" Margin="5" Width="890" Click="SaveButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded" />
-                                <Button Grid.Column="1" Content="CLOSE" Padding="5" Margin="5" Width="890" Click="BackButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded"/>
+                                <!--<Button Grid.Column="0" Content="SAVE UPDATES" Padding="5" Margin="5" Width="890" Command="{Binding SaveTicketCommand}" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded" />-->
+                                <Button Grid.Column="0" x:Name="saveButton" Content="SAVE UPDATES" Padding="5" Margin="5" Width="890" Command="{Binding SaveTicketCommand, ElementName=ticketDetails, UpdateSourceTrigger=PropertyChanged}" FontWeight="Medium" Foreground="#446d97" Background="#c5dded" />
+
+
+
+                                <Button Grid.Column="1" Content="CLOSE" Padding="5" Margin="5" Width="890" Click="BackButton_Click" FontWeight="Medium" Foreground="#446d97" Background="#c5dded"/>
                             </Grid>
                         </Grid>
                     </StackPanel>

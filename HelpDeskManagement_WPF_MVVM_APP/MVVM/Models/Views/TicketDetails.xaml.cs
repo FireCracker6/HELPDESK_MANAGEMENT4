@@ -28,88 +28,34 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
     /// </summary>
     public partial class TicketDetails : UserControl
     {
-
         private readonly UserService _userService;
         private readonly TicketService _ticketService;
         private readonly Guid _userId;
         private DataGrid _ticketDataGrid;
 
-
         public TicketDetails(Guid userId)
         {
             InitializeComponent();
 
-            DataContext = new TicketDetailModel(userId);
-            
-
             _ticketService = new TicketService();
-        
             _userService = new UserService();
             _userId = userId;
             ShowUser(userId);
-         
-            _ticketDataGrid = ticketDataGrid; // Assign the ticketDataGrid to the field
-          
+
             myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-         
+
+            var viewModel = new TicketDetailModel(userId);
+            DataContext = viewModel;
+            _ticketDataGrid = ticketDataGrid;
+
+            // Set the Command of the saveButton to the SaveTicketCommand of the viewModel
+            saveButton.Command = viewModel.SaveTicketCommand;
+
+            // Set the _ticketDataGrid property of the viewModel
+            viewModel.TicketDataGrid = _ticketDataGrid;
+
+            
         }
-
-
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("Iam clicked!");
-            var ticketDetailModel = (TicketDetailModel)DataContext;
-            ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
-
-            var publicTicket = new Ticket()
-            {
-                Id = ticketDetailModel.SelectedTicket.Id,
-                UsersId = ticketDetailModel.SelectedTicket.UsersId,
-                Title = ticketDetailModel.SelectedTicket.Title,
-                Description = ticketDetailModel.SelectedTicket.Description,
-                TicketCategory = ticketDetailModel.SelectedTicket.TicketCategory,
-                CreatedAt = ticketDetailModel.SelectedTicket.CreatedAt,
-                LastUpdatedAt = ticketDetailModel.SelectedTicket.LastUpdatedAt,
-                ClosedAt = ticketDetailModel.SelectedTicket.ClosedAt,
-                Priorities = new List<TicketPriorities>(),
-                Statuses = new List<TicketStatuses>(),
-                Comments = new List<TicketComments>()
-            };
-
-            foreach (var priority in ticketDetailModel.SelectedTicket.Priorities)
-            {
-                publicTicket.Priorities.Add(new TicketPriorities
-                {
-                    Id = priority.Id,
-                    PriorityName = priority.PriorityName
-                });
-            }
-
-            foreach (var status in ticketDetailModel.SelectedTicket.Statuses)
-            {
-                publicTicket.Statuses.Add(new TicketStatuses
-                {
-                    Id = status.Id,
-                    TicketId = status.TicketId,
-                    StatusName = status.StatusName
-                });
-            }
-
-            foreach (var comment in ticketDetailModel.SelectedTicket.Comments)
-            {
-                publicTicket.Comments.Add(new TicketComments
-                {
-                    Id = comment.Id,
-                    CommentsText = comment.CommentsText,
-
-                });
-                Debug.WriteLine(comment.CommentsText);
-            }
-
-
-            await ticketDetailModel.SaveTicket(publicTicket, _ticketDataGrid);
-        }
-
 
 
         private void ShowDefaultView()
@@ -123,70 +69,65 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
 
         private async Task ShowUser(Guid userId)
         {
+
             var item = await _userService.GetAsync(x => x.Id == userId);
             if (item != null)
             {
+
+                // Get the parent window of the current view
+                var mainWindow = Application.Current.MainWindow;
+
+                // Find the TicketsView control inside the main window
+                var ticketsView = FindVisualChild<TicketsView>(mainWindow);
+
+                // Set the visibility of the myDataGrid and myTicketDataGrid to Collapsed
+                ticketsView.myDataGrid.Visibility = Visibility.Collapsed;
+                ticketsView.myTicketDataGrid.Visibility = Visibility.Collapsed;
                 Debug.WriteLine(item.FirstName);
                 Debug.WriteLine("userId = " + userId);
 
-                // Set the ItemsSource property of the DataGrid control
-                var ticketService = new TicketService();
-                var tickets = await ticketService.GetAsync(userId);
+                var ticketDetailModel = (TicketDetailModel)DataContext;
+                await ticketDetailModel.LoadTicketsAsync(userId);
 
-                Debug.WriteLine($"Number of tickets retrieved for user with id {userId}: {tickets}");
-
-             
-                ticketDataGrid.ItemsSource = tickets;
-
-                var ticketsView = FindVisualChild<TicketsView>(Application.Current.MainWindow);
-
-                // Set the visibility of the grids to Visible
-                ticketsView.myDataGrid.Visibility = Visibility.Collapsed;
-                ticketsView.myTicketDataGrid.Visibility = Visibility.Collapsed;
-               
 
             }
+
             else
             {
-                // Handle the case where the user with the specified ID was not found.
-                // This could mean showing an error message or redirecting the user to a different page.
+                MessageBox.Show($"No ticket associated with {item?.Id}");
             }
         }
+
+
         private void MyDetailsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var ticketDetailModel = (TicketDetailModel)DataContext;
             ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
-          
+            var ticketsView = FindVisualChild<TicketsView>(Application.Current.MainWindow);
 
+            // Set the visibility of the grids to Visible
+            ticketsView.myDataGrid.Visibility = Visibility.Collapsed;
+            ticketsView.myTicketDataGrid.Visibility = Visibility.Collapsed;
         }
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var ticketDetailModel = (TicketDetailModel)DataContext;
-            ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
-        }
-     
+
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             var frame = FindVisualChild<Frame>(this);
             // Navigate back to the TicketsView
-          
+
             // Navigate to the new UserControl with the UserEntity object
             frame.NavigationService.Navigate(new TicketsView());
 
             ticketDataGrid.Visibility = Visibility.Collapsed;
             _tabControl.Visibility = Visibility.Collapsed;
 
-            // Set the visibility of the grids to Visible
-          
             var ticketsView = FindVisualChild<TicketsView>(Application.Current.MainWindow);
 
             // Set the visibility of the grids to Visible
             ticketsView.myDataGrid.Visibility = Visibility.Visible;
             ticketsView.myTicketDataGrid.Visibility = Visibility.Visible;
-
         }
-
-
 
         public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
@@ -204,15 +145,12 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views
             }
             return null!;
         }
-
-
-
-
-
-
-
-
-
     }
 
+
+
+
+
+
 }
+
