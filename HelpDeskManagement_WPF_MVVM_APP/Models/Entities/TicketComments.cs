@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public class TicketComments
 {
-    internal object UserId;
+   
 
     public int Id { get; set; }
     public int TicketId { get; set; }

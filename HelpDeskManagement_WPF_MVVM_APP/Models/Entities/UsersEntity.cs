@@ -10,12 +10,13 @@ public class UsersEntity
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public string Email { get; set; } = null!;
-    public string? PhoneNumber { get; set; } 
+    public string? PhoneNumber { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public virtual ICollection<TicketsEntity> Tickets { get; set; } = new HashSet<TicketsEntity>();
 
-    public DbContext Context { get; set; } // Add this line
+    public DbContext Context { get; set; } 
 
     public static implicit operator UsersEntity(Ticket ticket)
     {
@@ -47,8 +48,6 @@ public class UsersEntity
         };
        
     }
-
-   
 
 
 }

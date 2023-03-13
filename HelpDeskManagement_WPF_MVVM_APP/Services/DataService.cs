@@ -1,8 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using HelpDeskManagement_WPF_MVVM_APP.Contexts;
@@ -60,18 +58,6 @@ internal class DataService<T> where T : class
     }
 
 
-
-
-    //  public virtual async Task DeleteAsync(Func<T, bool> predicate)
-    //  {
-    //      var item =  await _context.Set<T>().FindAsync(predicate);
-    //if (item != null) 
-    //{
-    //	_context.Remove(item);
-    //	await _context.SaveChangesAsync();
-    //}
-
-    //  }
 
     public virtual async Task DeleteAsync(Guid id)
     {

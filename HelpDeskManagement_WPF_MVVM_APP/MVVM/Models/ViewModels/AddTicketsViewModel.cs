@@ -47,6 +47,21 @@ public partial class AddTicketsViewModel : ObservableObject
         }
     }
 
+    private ComboBoxItem _ticketCategory = null!;
+    public ComboBoxItem TicketCategory
+    {
+        get { return _ticketCategory; }
+        set
+        {
+            _ticketCategory = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string? SelectedTicketCategory
+    {
+        get { return _ticketCategory?.Content.ToString(); }
+    }
 
 
     public string FirstName { get; set; } = string.Empty;
@@ -55,7 +70,7 @@ public partial class AddTicketsViewModel : ObservableObject
     public string PhoneNumber { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string TicketCategory { get; set; } = string.Empty;
+
     public string CommentText { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public string StatusName { get; set; } = string.Empty;
@@ -82,6 +97,8 @@ public partial class AddTicketsViewModel : ObservableObject
         var ticketService = new TicketUserService();
         var commentsService = new TicketComments();
 
+
+
         var userEntity = new UsersEntity();
 
         var ticket = new UsersEntity()
@@ -97,7 +114,7 @@ public partial class AddTicketsViewModel : ObservableObject
             UsersId = ticket.Id,
             Title = Title,
             Description = Description,
-            TicketCategory = TicketCategory,
+            TicketCategory = SelectedTicketCategory,
             CreatedAt = CreatedAt,
         };
 
@@ -105,7 +122,7 @@ public partial class AddTicketsViewModel : ObservableObject
         var commentDetails = new TicketComments()
         {
             TicketId = ticketDetails.Id,
-            CommentsText = CommentText,
+            CommentsText = CommentText ?? "No comments yet",
             CreatedAt = DateTime.Now,
         };
 
