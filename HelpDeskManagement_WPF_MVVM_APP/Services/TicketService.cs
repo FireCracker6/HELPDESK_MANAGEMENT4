@@ -1,10 +1,8 @@
 ﻿
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using HelpDeskManagement_WPF_MVVM_APP.Contexts;
 using HelpDeskManagement_WPF_MVVM_APP.Models;
@@ -15,21 +13,33 @@ namespace HelpDeskManagement_WPF_MVVM_APP.Services;
 
 internal class TicketService
 {
+    #region Private Fields
+
     private readonly DataContext _context;
+
+    #endregion
+
+    #region Constructor
 
     public TicketService()
     {
-        _context= new DataContext();
+        _context = new DataContext();
     }
+
+    #endregion
+
+
+    #region public methods
+    // Creates a new ticket for the user with the given email
     public async Task CreateAsync(Ticket ticket, string email)
     {
         UsersEntity usersEntity = ticket;
-        usersEntity.Email= email;
+        usersEntity.Email = email;
 
         _context.Add(usersEntity);
         await _context.SaveChangesAsync();
     }
-
+    // Get all tickets
     public async Task<IEnumerable<TicketModel>> GetAllAsync()
     {
         var tickets = await _context.Tickets
@@ -106,8 +116,10 @@ public async Task<IEnumerable<Ticket>> GetAsync(Guid userId)
         return await _context.Tickets
             .Include(t => t.Priorities)
             .Include(t => t.Statuses)
+            .Include(t => t.Comments)
             .FirstOrDefaultAsync(t => t.Id == id);
     }
+
 
     public async Task UpdateTicketAsync(Ticket ticket)
     {
@@ -183,37 +195,5 @@ public async Task<IEnumerable<Ticket>> GetAsync(Guid userId)
     }
 
 
-
-
-
-
-
-
-
-    //public async Task<IEnumerable<TicketsEntity>> GetAsync(Guid userId)
-    //{
-    //    return await _context.Tickets.Where(t => t.UsersId == userId).ToListAsync();
-
-    //}
-    //public async Task<IEnumerable<TicketsEntity>> GetAsync(Guid userId)
-    //{
-    //    //var tickets = await _context.Tickets
-    //    //    .Include(t => t.Users)
-    //    //    .Where(t => t.UsersId == userId)
-    //    //    .ToListAsync();
-
-    //    //return tickets.Select(t => (Ticket)t);
-
-    //      return await _context.Tickets.Where(t => t.UsersId == userId).ToListAsync();
-    //}
-
-
-
-
-
-
-
-
-
-
 }
+#endregion

@@ -196,7 +196,7 @@
 
         </Grid>
         <DataGrid x:Name="ticketDataGrid" Grid.Row="5" Padding="20" AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" SelectionChanged="TicketDataGrid_SelectionChanged">
-            <!-- ... -->
+          
         </DataGrid>
 
     </Grid>

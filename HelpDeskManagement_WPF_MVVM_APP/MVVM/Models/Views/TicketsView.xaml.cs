@@ -67,7 +67,7 @@ public partial class TicketsView : UserControl
         var tickets = await ticketService.GetAllAsync();
         myTicketDataGrid.ItemsSource = null;
         myTicketDataGrid.ItemsSource = tickets;
-        Debug.WriteLine($"Tickets found {tickets.Count()}");
+    //    Debug.WriteLine($"Tickets found {tickets.Count()}");
     }
 
     // Update myTicketDataGrid with all tickets
