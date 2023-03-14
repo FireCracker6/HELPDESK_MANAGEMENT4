@@ -77,7 +77,7 @@ public partial class TicketsView : UserControl
         var tickets = await ticketService.GetAllAsync();
         myTicketDataGrid.ItemsSource = null;
         myTicketDataGrid.ItemsSource = tickets;
-        Debug.WriteLine($"Tickets found {tickets.Count()}");
+    //    Debug.WriteLine($"Tickets found {tickets.Count()}");
     }
 
     // Load tickets associated with the selected user
@@ -87,7 +87,7 @@ public partial class TicketsView : UserControl
         var tickets = await ticketService.GetAllAsync();
         myTicketDataGrid.ItemsSource = null;
         myTicketDataGrid.ItemsSource = tickets.Where(t => t.UsersId == selectedUserId);
-        Debug.WriteLine($"Tickets found {tickets.Count()}");
+    //    Debug.WriteLine($"Tickets found {tickets.Count()}");
     }
 
     // Navigate to TicketDetails view with the selected ticket as a parameter
@@ -137,8 +137,7 @@ public partial class TicketsView : UserControl
             }
         }
     }
-
-
+ 
 
     private async void MyDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
     {
@@ -165,7 +164,7 @@ public partial class TicketsView : UserControl
     private void TicketDetail_Click(object sender, RoutedEventArgs e)
     {
         var selectedItem = myDataGrid.SelectedItem;
-
+   
         if (selectedItem == null)
         {
             // Handle the case where no item is selected
@@ -179,7 +178,7 @@ public partial class TicketsView : UserControl
             // Get a reference to the Frame control that hosts this UserControl
             // var frame = (Frame)Window.GetWindow(this).FindName("myFrame");
             var frame = FindVisualChild<Frame>(this);
-
+            Debug.WriteLine($"selected item: {userEntity.LastName}");
             // Navigate to the new UserControl with the UserEntity object
             frame.NavigationService.Navigate(new TicketDetails(userEntity.Id));
             myDataGrid.Visibility = Visibility.Visible;

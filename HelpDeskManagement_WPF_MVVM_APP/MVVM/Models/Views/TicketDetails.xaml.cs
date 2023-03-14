@@ -30,7 +30,7 @@ public partial class TicketDetails : UserControl
     public TicketDetails(Guid userId)
     {
         InitializeComponent();
-
+        DataContext = new TicketDetailModel();
         // Instantiate services and fields
         _ticketService = new TicketService();
         _userService = new UserService();
@@ -41,8 +41,10 @@ public partial class TicketDetails : UserControl
 
         // Set the data context for the view
         var viewModel = new TicketDetailModel(userId);
-        DataContext = viewModel;
+
+      //  DataContext = viewModel;
         _ticketDataGrid = ticketDataGrid;
+        Ticket selectedTicket = viewModel.SelectedTicket;
 
         // Set the Command of the saveButton to the SaveTicketCommand of the viewModel
         saveButton.Command = viewModel.SaveTicketCommand;
@@ -88,6 +90,7 @@ public partial class TicketDetails : UserControl
     // Set the selected ticket in the view model when the user selects a row in the data grid
     private void MyDetailsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+
         var ticketDetailModel = (TicketDetailModel)DataContext;
         ticketDetailModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
         var ticketsView = FindVisualChild<TicketsView>(Application.Current.MainWindow);
@@ -96,6 +99,22 @@ public partial class TicketDetails : UserControl
         ticketsView.myDataGrid.Visibility = Visibility.Collapsed;
         ticketsView.myTicketDataGrid.Visibility = Visibility.Collapsed;
     }
+    private async void TicketDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+    {
+        // Cast the DataContext to the TicketDetailModel
+        TicketDetailModel viewModel = (TicketDetailModel)DataContext;
+
+        // Check if SelectedTicket is null and load data if it is
+        if (viewModel.SelectedTicket == null)
+        {
+            await viewModel.LoadTicketsAsync(viewModel.SelectedUserId);
+        }
+
+        // Set the SelectedTicket property to the selected item
+        viewModel.SelectedTicket = (Ticket)ticketDataGrid.SelectedItem;
+        Debug.WriteLine($"{viewModel.SelectedTicket.Email}");
+    }
+
 
 
     private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -45,7 +45,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <DataGrid x:Name="ticketDataGrid" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
+                            <DataGrid x:Name="ticketDataGrid" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged"  SelectedCellsChanged="TicketDataGrid_SelectedCellsChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="FontWeight"  Value="Bold" />

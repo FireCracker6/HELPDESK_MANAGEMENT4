@@ -106,7 +106,7 @@ public partial class AddTicketsViewModel : ObservableObject
             FirstName = FirstName,
             LastName = LastName,
             Email = Email,
-            PhoneNumber = PhoneNumber,
+            PhoneNumber = string.Format("{0:(###) ###-####}", double.Parse(PhoneNumber)),
         };
 
         var ticketDetails = new TicketsEntity(_context)

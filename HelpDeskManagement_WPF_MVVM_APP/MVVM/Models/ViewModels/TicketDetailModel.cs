@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -73,14 +74,18 @@ public partial class TicketDetailModel : ObservableRecipient
     }
 
     private Ticket _selectedTicket;
-    internal Ticket SelectedTicket
+    public Ticket SelectedTicket
     {
-        get => _selectedTicket;
-        set => SetProperty(ref _selectedTicket, value);
+        get { return _selectedTicket; }
+        set
+        {
+            _selectedTicket = value;
+            Debug.WriteLine($"SelectedTicket set to {value?.Email}");
+            RaisePropertyChanged(nameof(SelectedTicket));
+        }
     }
 
     private ObservableCollection<Ticket> _tickets;
-
     public ObservableCollection<Ticket> Tickets
     {
         get { return _tickets; }
@@ -90,7 +95,6 @@ public partial class TicketDetailModel : ObservableRecipient
             OnPropertyChanged(nameof(Tickets));
         }
     }
-
     #endregion
 
     #region Constructors
@@ -105,23 +109,32 @@ public partial class TicketDetailModel : ObservableRecipient
     {
         _ticketService = new TicketService();
         SelectedUserId = userId;
-        _ = LoadTicketsAsync(userId);
+       
         _context = new DataContext();
-
+        SelectedTicket = null!;
 
         PriorityList = new List<string> { "High", "Medium", "Low" };
         StatusesList = new List<string> { "Opened", "Updated", "Closed" };
-    }
 
+        // Initialize SelectedTicket to null
+        SelectedTicket = new Ticket();
+        _ = LoadTicketsAsync(userId);
+    }
+    public void RaisePropertyChanged(string propertyName)
+    {
+        OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+    }
     #endregion
 
     #region Public Methods
 
     public async Task LoadTicketsAsync(Guid userId)
     {
+        //Debug.WriteLine(SelectedTicket.Email);
         var tickets = await _ticketService.GetAsync(userId);
         Tickets = new ObservableCollection<Ticket>(tickets);
-        Debug.WriteLine(tickets.Count());
+        // Debug.WriteLine(tickets.Count());
+       
     }
 
     public async Task SaveTicket(Ticket ticket, DataGrid ticketDataGrid)
