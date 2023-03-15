@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
              xmlns:viewmodels="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="2000" >
     <UserControl.DataContext>
@@ -44,8 +45,10 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
-                            <DataGrid x:Name="ticketDataGrid" ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged"  SelectedCellsChanged="TicketDataGrid_SelectedCellsChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
+                            <DataGrid x:Name="ticketDataGrid" 
+          ItemsSource="{Binding Tickets}" 
+          SelectedItem="{Binding SelectedTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          DataContext="{Binding}"  AutoGenerateColumns="False" CanUserAddRows="False" SelectionChanged="MyDetailsDataGrid_SelectionChanged"  SelectedCellsChanged="TicketDataGrid_SelectedCellsChanged" Grid.Row="0" Grid.ColumnSpan="2"  CanUserSortColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" HorizontalAlignment="Center"  Background="#3f3f3f"  RowHeaderWidth="0">
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">
                                         <Setter Property="FontWeight"  Value="Bold" />
@@ -128,11 +131,12 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
-                                                <ComboBox ItemsSource="{Binding Path=DataContext.PriorityList, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                              SelectedItem="{Binding Path=Priorities[0].PriorityName}"
-                              SelectedValuePath="."
-                              SelectedValue="{Binding Path=Priorities[0].PriorityName}"
-                              Width="115"
+                                                <ComboBox ItemsSource="{Binding PriorityList}" 
+          SelectedItem="{Binding Path=Priorities[0].PriorityName}" 
+          SelectedValuePath="." 
+          SelectedValue="{Binding Path=Priorities[0].PriorityName}" 
+
+                                                Width="115"
                               Height="25"
                               Foreground="white"
                               VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="0">           
@@ -215,7 +219,7 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
-                                                <ComboBox ItemsSource="{Binding Path=DataContext.StatusesList, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                <ComboBox ItemsSource="{Binding StatusesList}"
                               SelectedItem="{Binding Path=Statuses[0].StatusName}"
                               SelectedValuePath="."
                               SelectedValue="{Binding Path=Statuses[0].StatusName}"

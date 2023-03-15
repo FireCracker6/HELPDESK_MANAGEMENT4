@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:viewmodels="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
+             xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
+
                 xmlns:views="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
           d:DataContext="{d:DesignInstance Type=viewmodels:AddTicketsViewModel}"
                 mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="800">
-    
-        <Grid Margin="40">
+    <UserControl.Resources>
+        <local:PhoneNumberMaskConverter x:Key="phoneNumberMaskConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
                 <RowDefinition Height="auto" />
@@ -17,51 +21,58 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="{Binding PageTitle}" FontSize="22" FontWeight="Medium" Margin="0 0 0 20" />
-            <StackPanel Grid.Row="1" Background="#c4becc" Margin="0" HorizontalAlignment="Stretch">
             
-            <Label Content="Enter First Name..." FontWeight="Medium" />
-            <TextBox Text="{Binding FirstName }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
-            <Label Content="Enter Last Name..." FontWeight="Medium" />
-            <TextBox Text="{Binding LastName }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
-            <Label Content="Enter Email..."  FontWeight="Medium"/>
-            <TextBox Text="{Binding Email }" Padding="5" Margin="0 2 0 5"   Background="#f4eff4" />
-            <Label Content="Enter Phone Number..." FontWeight="Medium" />
-                <TextBox Text="{Binding PhoneNumber }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
-            <Label Content="Enter Ticket Title..." FontWeight="Medium" />
-            <TextBox Text="{Binding Title }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+        <Border  CornerRadius="10" BorderThickness="1" Grid.Row="1"  Grid.RowSpan="2" BorderBrush="Gainsboro">
+            
+            <StackPanel Grid.Row="1" Background="#c4becc" Margin="0" HorizontalAlignment="Stretch"  >
 
-            <Label Content="Enter Description..."  FontWeight="Medium"/>
-            <TextBox Text="{Binding Description }" Padding="5" Margin="0 2 0 5" AcceptsReturn="True" TextWrapping="Wrap" Height="100"  Background="#f4eff4" />
+                <Label Content="Enter First Name..." FontWeight="Medium" />
+                <TextBox Text="{Binding FirstName }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+                <Label Content="Enter Last Name..." FontWeight="Medium" />
+                <TextBox Text="{Binding LastName }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+                <Label Content="Enter Email..."  FontWeight="Medium"/>
+                <TextBox Text="{Binding Email }" Padding="5" Margin="0 2 0 5"   Background="#f4eff4" />
+                <Label Content="Enter Phone Number..." FontWeight="Medium" />
+                <!--<TextBox Text="{Binding PhoneNumber }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />-->
+                <TextBox Text="{Binding PhoneNumber, Converter={StaticResource phoneNumberMaskConverter}}" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
+                <Label Content="Enter Ticket Title..." FontWeight="Medium" />
+                <TextBox Text="{Binding Title }" Padding="5" Margin="0 2 0 5"  Background="#f4eff4" />
 
-            <Label Content="Select Category..." FontWeight="Medium" />
-            <ComboBox SelectedItem="{Binding TicketCategory}" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
-                <ComboBoxItem Content="Network" />
-                <ComboBoxItem Content="Programming &amp; Software" />
-                <ComboBoxItem Content="Hardware related" />
-            </ComboBox>
-            <Label Content="Pick Priority..." FontWeight="Medium" />
-            <ComboBox SelectedItem="{Binding TicketPriority}" x:Name="PriorityComboBox" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
-                <ComboBoxItem Content="High" />
-                <ComboBoxItem Content="Medium" />
-                <ComboBoxItem Content="Low" />
-            </ComboBox>
+                <Label Content="Enter Description..."  FontWeight="Medium"/>
+                <TextBox Text="{Binding Description }" Padding="5" Margin="0 2 0 5" AcceptsReturn="True" TextWrapping="Wrap" Height="100"  Background="#f4eff4" />
 
-            <Label Content="Set Status..." FontWeight="Medium" />
-            <ComboBox SelectedItem="{Binding TicketStatus}" x:Name="StatusComboBox" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
-                <ComboBoxItem>Opened</ComboBoxItem>
-                <ComboBoxItem>Updated</ComboBoxItem>
-                <ComboBoxItem>Closed</ComboBoxItem>
-            </ComboBox>
+                <Label Content="Select Category..." FontWeight="Medium" />
+                <ComboBox ItemsSource="{Binding TicketCategoryList}" SelectedItem="{Binding TicketCategory}" Padding="5" Margin="0 2 0 5" Background="#f4eff4" />
+                <!--<ComboBox SelectedItem="{Binding TicketCategory}" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
+                    <ComboBoxItem Content="Network" />
+                    <ComboBoxItem Content="Programming &amp; Software" />
+                    <ComboBoxItem Content="Hardware related" />
+                </ComboBox>-->
+                <Label Content="Pick Priority..." FontWeight="Medium" />
+                <ComboBox ItemsSource="{Binding TicketPriorityList}" SelectedItem="{Binding TicketPriority}" Padding="5" Margin="0 2 0 5" Background="#f4eff4" />
+                <!--<ComboBox SelectedItem="{Binding TicketPriority}" x:Name="PriorityComboBox" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
+                    <ComboBoxItem Content="High" />
+                    <ComboBoxItem Content="Medium" />
+                    <ComboBoxItem Content="Low" />
+                </ComboBox>-->
+
+                <Label Content="Set Status..." FontWeight="Medium" />
+                <ComboBox ItemsSource="{Binding TicketStatusList}" SelectedItem="{Binding TicketStatus}" Padding="5" Margin="0 2 0 5" Background="#f4eff4" />
+                <!--<ComboBox SelectedItem="{Binding TicketStatus}" x:Name="StatusComboBox" Padding="5" Margin="0 2 0 5" Background="#f4eff4">
+                    <ComboBoxItem>Opened</ComboBoxItem>
+                    <ComboBoxItem>Updated</ComboBoxItem>
+                    <ComboBoxItem>Closed</ComboBoxItem>
+                </ComboBox>-->
 
 
-            <Label Content="Enter Comments..."  FontWeight="Medium"/>
-            <TextBox Text="{Binding CommentText }" Padding="5" Margin="0 2 0 5" AcceptsReturn="True" TextWrapping="Wrap" Height="100"  Background="#f4eff4" />
+                <Label Content="Enter Comments..."  FontWeight="Medium"/>
+                <TextBox Text="{Binding CommentText }" Padding="5" Margin="0 2 0 5" AcceptsReturn="True" TextWrapping="Wrap" Height="100"  Background="#f4eff4" />
 
-       
-            <Button   Command="{Binding AddCommand}" Content="ADD TICKET" Padding="8"  Margin="0 10 0 2" HorizontalAlignment="Stretch" Background="#8394a3" />
 
+                <Button Command="{Binding AddCommand}" Content="ADD TICKET" Padding="8" Margin="0 10 0 2" HorizontalAlignment="Stretch" Background="#8394a3" Foreground="Black" FontWeight="Bold" />
             </StackPanel>
+        </Border>
 
-        </Grid>
+    </Grid>
    
 </UserControl>

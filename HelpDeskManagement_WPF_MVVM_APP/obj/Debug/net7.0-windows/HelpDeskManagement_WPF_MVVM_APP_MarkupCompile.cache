@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\Svart\Source\Repos\Webbutveckling\HELPDESKFROMGITHUB\HELPDESK_MANAGEMENT2-master\HelpDeskManagement_WPF_MVVM_APP\App.xaml
 51955017970
 21527132361
-291970268204
+301304784155
 228-1549656159
 MainWindow.xaml;MVVM\Models\Views\AddTicket.xaml;MVVM\Models\Views\TicketDetails.xaml;MVVM\Models\Views\TicketsView.xaml;Resources\NavigationDictionary.xaml;
 assets\images\ticket_management.jpeg

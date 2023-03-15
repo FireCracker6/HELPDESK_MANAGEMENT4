@@ -66,6 +66,8 @@ public partial class TicketDetailModel : ObservableRecipient
         }
     }
 
+
+
     private Guid _selectedUserId;
     public Guid SelectedUserId
     {
@@ -95,6 +97,10 @@ public partial class TicketDetailModel : ObservableRecipient
             OnPropertyChanged(nameof(Tickets));
         }
     }
+    private string _selectedPriority;
+
+    
+
     #endregion
 
     #region Constructors
@@ -103,7 +109,9 @@ public partial class TicketDetailModel : ObservableRecipient
     {
         _ticketService = new TicketService();
         _context = new DataContext();
+
     }
+
 
     public TicketDetailModel(Guid userId)
     {
@@ -111,13 +119,13 @@ public partial class TicketDetailModel : ObservableRecipient
         SelectedUserId = userId;
        
         _context = new DataContext();
-        SelectedTicket = null!;
-
-        PriorityList = new List<string> { "High", "Medium", "Low" };
-        StatusesList = new List<string> { "Opened", "Updated", "Closed" };
-
-        // Initialize SelectedTicket to null
+        
+     
+       
         SelectedTicket = new Ticket();
+        
+
+
         _ = LoadTicketsAsync(userId);
     }
     public void RaisePropertyChanged(string propertyName)
@@ -136,14 +144,13 @@ public partial class TicketDetailModel : ObservableRecipient
         // Debug.WriteLine(tickets.Count());
        
     }
+   
 
     public async Task SaveTicket(Ticket ticket, DataGrid ticketDataGrid)
     {
-        Debug.WriteLine("I am clicked!");
         if (ticket == null || ticketDataGrid == null) return;
 
         var selectedTicket = (Ticket)ticketDataGrid.SelectedItem;
-        Debug.WriteLine($"selected ticket {selectedTicket.Id}");
         var ticketEntity = await _context.Tickets.FindAsync(selectedTicket.Id);
 
         if (ticketEntity == null)
@@ -151,11 +158,20 @@ public partial class TicketDetailModel : ObservableRecipient
             throw new ArgumentException($"Ticket with Id {selectedTicket.Id} does not exist.");
         }
 
+      
+        var userEntity = await _context.Users.FindAsync(selectedTicket.UsersId);
+        if (userEntity != null)
+        {
+            userEntity.FirstName = ticket.FirstName;
+            userEntity.LastName = ticket.LastName;
+            userEntity.Email = ticket.Email;
+       //     userEntity.PhoneNumber = ticket.PhoneNumber; // NOT YET IMPLEMENTED
+        }
         ticketEntity.Title = ticket.Title;
         ticketEntity.Description = ticket.Description;
-        ticketEntity.TicketCategory = "General";
-        ticketEntity.CreatedAt = ticket.CreatedAt;
+        //   ticketEntity.TicketCategory = ticket.TicketCategory;  // NOT YET IMPLEMENTED
         ticketEntity.LastUpdatedAt = DateTime.Now;
+
 
         // Check if the status is "Closed" and set ClosedAt to DateTime.Now if it is
         if (ticket.Statuses.Any(s => s.StatusName == "Closed"))
@@ -184,15 +200,19 @@ public partial class TicketDetailModel : ObservableRecipient
                 CreatedAt = comment.CreatedAt
             });
         }
-        Debug.WriteLine(ticket.Comments);
+
+        // Track changes to the entity
+        _context.Entry(ticketEntity).State = EntityState.Modified;
+
+        // Commit changes to the database
         await _context.SaveChangesAsync();
-        // get the instance of TicketsView
-        var mainWindow = Application.Current.MainWindow;
-        var ticketsView = FindVisualChild<TicketsView>(mainWindow);
 
         // update the tickets in the view
+        var mainWindow = Application.Current.MainWindow;
+        var ticketsView = FindVisualChild<TicketsView>(mainWindow);
         await ticketsView.UpdateTickets();
     }
+
 
     private ICommand _saveTicketCommand;
     public ICommand SaveTicketCommand

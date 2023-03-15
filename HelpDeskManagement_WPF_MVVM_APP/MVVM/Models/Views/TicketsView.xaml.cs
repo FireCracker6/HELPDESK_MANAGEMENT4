@@ -70,15 +70,19 @@ public partial class TicketsView : UserControl
     //    Debug.WriteLine($"Tickets found {tickets.Count()}");
     }
 
-    // Update myTicketDataGrid with all tickets
+  
     public async Task UpdateTickets()
     {
         var ticketService = new TicketService();
         var tickets = await ticketService.GetAllAsync();
         myTicketDataGrid.ItemsSource = null;
         myTicketDataGrid.ItemsSource = tickets;
-    //    Debug.WriteLine($"Tickets found {tickets.Count()}");
+
+        var userService = new UserService();
+        var users = await userService.GetAllAsync();
+        myDataGrid.ItemsSource = users;
     }
+
 
     // Load tickets associated with the selected user
     private async Task ShowGridTickets(Guid selectedUserId)
@@ -181,8 +185,10 @@ public partial class TicketsView : UserControl
             Debug.WriteLine($"selected item: {userEntity.LastName}");
             // Navigate to the new UserControl with the UserEntity object
             frame.NavigationService.Navigate(new TicketDetails(userEntity.Id));
-            myDataGrid.Visibility = Visibility.Visible;
-            myTicketDataGrid.Visibility = Visibility.Visible;
+            myDataGrid.Visibility = Visibility.Collapsed;
+            myTicketDataGrid.Visibility = Visibility.Collapsed;
+            myDataGrid_HeaderLabel.Visibility = Visibility.Collapsed;
+            myTicketDataGrid_HeaderLabel.Visibility = Visibility.Collapsed;
         }
         else
         {

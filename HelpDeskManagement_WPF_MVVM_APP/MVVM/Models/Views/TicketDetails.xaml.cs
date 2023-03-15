@@ -27,25 +27,15 @@ public partial class TicketDetails : UserControl
 
     #region Constructor
 
+    
     public TicketDetails(Guid userId)
     {
         InitializeComponent();
-        DataContext = new TicketDetailModel();
-        // Instantiate services and fields
-        _ticketService = new TicketService();
-        _userService = new UserService();
-        _userId = userId;
-        ShowUser(userId);
-
-        myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-
-        // Set the data context for the view
         var viewModel = new TicketDetailModel(userId);
-
-      //  DataContext = viewModel;
+        DataContext = viewModel;
         _ticketDataGrid = ticketDataGrid;
         Ticket selectedTicket = viewModel.SelectedTicket;
-
+       
         // Set the Command of the saveButton to the SaveTicketCommand of the viewModel
         saveButton.Command = viewModel.SaveTicketCommand;
 
@@ -60,26 +50,26 @@ public partial class TicketDetails : UserControl
     // Show user information associated with the selected ticket
     private async Task ShowUser(Guid userId)
     {
+        // Get the parent window of the current view
+        var mainWindow = Application.Current.MainWindow;
+
+        // Find the TicketsView control inside the main window
+        var ticketsView = FindVisualChild<TicketsView>(mainWindow);
+
+       
+
         var item = await _userService.GetAsync(x => x.Id == userId);
         if (item != null)
         {
-            // Get the parent window of the current view
-            var mainWindow = Application.Current.MainWindow;
-
-            // Find the TicketsView control inside the main window
-            var ticketsView = FindVisualChild<TicketsView>(mainWindow);
-
-            // Set the visibility of the myDataGrid and myTicketDataGrid to Collapsed
-            ticketsView.myDataGrid.Visibility = Visibility.Collapsed;
-            ticketsView.myTicketDataGrid.Visibility = Visibility.Collapsed;
-            ticketsView.myDataGrid_HeaderLabel.Visibility = Visibility.Collapsed;
-            ticketsView.myTicketDataGrid_HeaderLabel.Visibility = Visibility.Collapsed;
-
+           
             Debug.WriteLine(item.FirstName);
             Debug.WriteLine("userId = " + userId);
 
             var ticketDetailModel = (TicketDetailModel)DataContext;
             await ticketDetailModel.LoadTicketsAsync(userId);
+          
+           
+
         }
         else
         {
@@ -133,6 +123,8 @@ public partial class TicketDetails : UserControl
         // Set the visibility of the grids to Visible
         ticketsView.myDataGrid.Visibility = Visibility.Visible;
         ticketsView.myTicketDataGrid.Visibility = Visibility.Visible;
+        ticketsView.myTicketDataGrid_HeaderLabel.Visibility = Visibility.Visible;
+        ticketsView.myDataGrid_HeaderLabel.Visibility = Visibility.Visible;
     }
 
     public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject

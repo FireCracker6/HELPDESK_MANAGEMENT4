@@ -18,14 +18,15 @@ public class Ticket
     public DateTime? CreatedAt { get; set; }
     public DateTime? LastUpdatedAt { get; set; }
     public DateTime? ClosedAt { get; set; }
+    
    
 
     public User User { get; set; }
     public ICollection<TicketComments> Comments { get; set; } = new List<TicketComments>();
     public ICollection<TicketPriorities> Priorities { get; set; } = new List<TicketPriorities>();
     public ICollection<TicketStatuses> Statuses { get; set; } = new List<TicketStatuses>();
-  
-
+    public static List<string> PriorityList { get; set; } = new List<string> { "High", "Medium", "Low" };
+    public static List<string> StatusesList { get; } = new List<string> { "Opened", "Updated", "Closed" };
 }
 
 public class User

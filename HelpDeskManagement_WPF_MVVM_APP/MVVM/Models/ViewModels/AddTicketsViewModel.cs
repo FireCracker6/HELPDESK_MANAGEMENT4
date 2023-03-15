@@ -63,6 +63,35 @@ public partial class AddTicketsViewModel : ObservableObject
         get { return _ticketCategory?.Content.ToString(); }
     }
 
+    public List<ComboBoxItem> TicketCategoryList { get; } = new List<ComboBoxItem>
+    {
+    new ComboBoxItem { Content = "Network" },
+    new ComboBoxItem { Content = "Programming & Software" },
+    new ComboBoxItem { Content = "Hardware related" }
+    };
+    public List<ComboBoxItem> TicketPriorityList { get; } = new List<ComboBoxItem>
+    {
+    new ComboBoxItem { Content = "High" },
+    new ComboBoxItem { Content = "Medium" },
+    new ComboBoxItem { Content = "Low" }
+    };
+    public List<ComboBoxItem> TicketStatusList { get; } = new List<ComboBoxItem>
+    {
+    new ComboBoxItem { Content = "Opened" },
+    new ComboBoxItem { Content = "In Progress" },
+    new ComboBoxItem { Content = "Closed" }
+    };
+
+
+    public AddTicketsViewModel()
+    {
+       
+        TicketCategory = TicketCategoryList[1];
+        TicketPriority = TicketPriorityList[1];
+        TicketStatus = TicketStatusList[0];
+
+
+    }
 
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
@@ -106,7 +135,7 @@ public partial class AddTicketsViewModel : ObservableObject
             FirstName = FirstName,
             LastName = LastName,
             Email = Email,
-            PhoneNumber = string.Format("{0:(###) ###-####}", double.Parse(PhoneNumber)),
+            PhoneNumber = string.Format("{0:000-### ## ##}", double.Parse(PhoneNumber)),
         };
 
         var ticketDetails = new TicketsEntity(_context)
