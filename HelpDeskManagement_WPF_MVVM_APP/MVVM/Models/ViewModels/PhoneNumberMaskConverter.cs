@@ -14,7 +14,7 @@ public class PhoneNumberMaskConverter : IValueConverter
     {
         string phoneNumber = (string)value;
 
-        // Add your formatting logic here
+      
         if (phoneNumber?.Length == 10)
         {
             return string.Format("{0:000-### ## ##}", double.Parse(phoneNumber));
