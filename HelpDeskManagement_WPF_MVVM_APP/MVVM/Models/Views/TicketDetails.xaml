@@ -115,7 +115,7 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
                                     <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt}" Width="150" />
-                                    <DataGridTextColumn Header="Admin Comments" Binding="{Binding Path=Comments[0].CommentsText}" Width="300">
+                                    <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments[0].CommentsText}" Width="300">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextWrapping" Value="Wrap" />
