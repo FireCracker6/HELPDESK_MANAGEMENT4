@@ -22,6 +22,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP
             };
 
             MainWindow.Show();
+            MainWindow.HorizontalContentAlignment = HorizontalAlignment.Center;
             base.OnStartup(e);
         }
     }

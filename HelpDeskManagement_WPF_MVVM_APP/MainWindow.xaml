@@ -14,27 +14,28 @@
     <Grid Background="#b7c7d4" Height="6000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
             <Button Command="{Binding GoToTicketsCommand}" Content="&#xf022;" Style="{StaticResource navButton}" />
             <Button Command="{Binding GoToAddTicketCommand}"  Content="&#xf872;" Style="{StaticResource navButton}"   />
+       
 
         </StackPanel>
-
-        <StackPanel Grid.Column="1">
-                <ContentControl  Content="{Binding CurrentViewModel}" >
+    
+        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" >
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:TicketsViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:TicketsViewModel}" >
                     <views:TicketsView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:AddTicketsViewModel}">
                     <views:AddTicket />
                 </DataTemplate>
             </ContentControl.Resources>
-        </ContentControl>
-       
+            </ContentControl>
+     
+        <StackPanel Grid.Column="1">
          
         </StackPanel>
      

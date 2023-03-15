@@ -32,8 +32,8 @@ public partial class TicketsView : UserControl
         InitializeComponent();
         _userService = new UserService();
 
-        ShowAllUsers();
-        ShowAllTickets();
+       _= ShowAllUsers();
+       _=  ShowAllTickets();
 
         // Hook up the SelectionChanged event for the ticketDataGrid
         ticketDataGrid.SelectionChanged += TicketDataGrid_SelectionChanged;
