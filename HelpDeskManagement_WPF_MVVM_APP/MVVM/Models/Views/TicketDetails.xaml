@@ -320,7 +320,7 @@
                         
 
                         </Grid>
-                        <Label Grid.Row="4" x:Name="myMessageLabel" Content="{Binding Message}" Visibility="{Binding IsMessageVisible}" Foreground="#c59cc2"  FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" />
+                        <Label Grid.Row="4" x:Name="myMessageLabel" Content="{Binding Message}" Foreground="#c59cc2"  FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>

@@ -54,8 +54,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HelpDeskManagement_WPF_MVVM_APP;V1.0.0.0;component/mvvm/models/views/addticket.x" +
-                    "aml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HelpDeskManagement_WPF_MVVM_APP;component/mvvm/models/views/addticket.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\MVVM\Models\Views\AddTicket.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

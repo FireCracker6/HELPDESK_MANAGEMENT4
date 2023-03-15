@@ -55,7 +55,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HelpDeskManagement_WPF_MVVM_APP;V1.0.0.0;component/mainwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HelpDeskManagement_WPF_MVVM_APP;component/mainwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\MainWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
