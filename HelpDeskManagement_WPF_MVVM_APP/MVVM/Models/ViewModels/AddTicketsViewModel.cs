@@ -143,7 +143,7 @@ public partial class AddTicketsViewModel : ObservableObject
             UsersId = ticket.Id,
             Title = Title,
             Description = Description,
-            TicketCategory = SelectedTicketCategory,
+            TicketCategory = SelectedTicketCategory!,
             CreatedAt = CreatedAt,
         };
 

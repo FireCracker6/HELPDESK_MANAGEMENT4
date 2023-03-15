@@ -99,7 +99,23 @@ public partial class TicketDetailModel : ObservableRecipient
     }
     private string _selectedPriority;
 
-    
+
+    // For a message after updating to the user
+    private string _message;
+    public string Message
+    {
+        get { return _message; }
+        set { _message = value; OnPropertyChanged(nameof(Message)); }
+    }
+
+    private bool _isMessageVisible;
+    public bool IsMessageVisible
+    {
+        get { return _isMessageVisible; }
+        set { _isMessageVisible = value; OnPropertyChanged(nameof(IsMessageVisible)); }
+    }
+
+
 
     #endregion
 
@@ -138,7 +154,7 @@ public partial class TicketDetailModel : ObservableRecipient
 
     public async Task LoadTicketsAsync(Guid userId)
     {
-        //Debug.WriteLine(SelectedTicket.Email);
+      
         var tickets = await _ticketService.GetAsync(userId);
         Tickets = new ObservableCollection<Ticket>(tickets);
         // Debug.WriteLine(tickets.Count());
@@ -211,6 +227,15 @@ public partial class TicketDetailModel : ObservableRecipient
         var mainWindow = Application.Current.MainWindow;
         var ticketsView = FindVisualChild<TicketsView>(mainWindow);
         await ticketsView.UpdateTickets();
+       
+    }
+    private async Task DisplayMessage(string message, TimeSpan displayTime)
+    {
+        Message = message;
+        IsMessageVisible = true;
+        await Task.Delay(displayTime);
+        IsMessageVisible = false;
+        Message = string.Empty;
     }
 
 
@@ -221,11 +246,22 @@ public partial class TicketDetailModel : ObservableRecipient
         {
             if (_saveTicketCommand == null)
             {
-                _saveTicketCommand = new RelayCommand(async () => await SaveTicket(SelectedTicket, _ticketDataGrid));
+                _saveTicketCommand = new RelayCommand(async () =>
+                {
+                    if (SelectedTicket == null || _ticketDataGrid.SelectedItem == null)
+                    {
+                        await DisplayMessage("No updates made you must edit a column!", TimeSpan.FromSeconds(3));
+                        return;
+                    }
+
+                    await SaveTicket(SelectedTicket, _ticketDataGrid);
+                    await DisplayMessage($"Updates succcessfull for selected ticket id: {SelectedTicket.Id} with the email-address: {SelectedTicket.Email}", TimeSpan.FromSeconds(3));
+                });
             }
             return _saveTicketCommand;
         }
     }
+
     public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
     {
         for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)

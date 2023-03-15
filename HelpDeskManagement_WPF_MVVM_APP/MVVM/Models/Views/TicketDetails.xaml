@@ -19,6 +19,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="500"/>
             <RowDefinition Height="500"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -114,7 +115,7 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
                                     <DataGridTextColumn Header="Created At" Binding="{Binding CreatedAt}" Width="150" />
-                                    <DataGridTextColumn Header="Comments" Binding="{Binding Path=Comments[0].CommentsText}" Width="300">
+                                    <DataGridTextColumn Header="Admin Comments" Binding="{Binding Path=Comments[0].CommentsText}" Width="300">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -303,26 +304,23 @@
                                 
                             </DataGrid>
                             
-                            <!--<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                                <Button Content="SAVE UPDATES" Padding="5" Margin="5"   Width="Auto" MaxWidth="{Binding ActualWidth, ElementName=myDataGrid}" Click="SaveButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                                <Button Content="CLOSE" Padding="5" Margin="5" Width="980" Click="BackButton_Click" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded"/>
-                            </StackPanel>-->
+                        
                             <Grid Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!--<Button Grid.Column="0" Content="SAVE UPDATES" Padding="5" Margin="5" Width="890" Command="{Binding SaveTicketCommand}" FontWeight="Medium" Foreground="DarkBlue" Background="#c5dded" />-->
                                 <Button Grid.Column="0" x:Name="saveButton" Content="SAVE UPDATES" Padding="5" Margin="5" Width="890" Command="{Binding SaveTicketCommand, ElementName=ticketDetails, UpdateSourceTrigger=PropertyChanged}" FontWeight="Medium" Foreground="#446d97" Background="#c5dded" />
 
 
 
                                 <Button Grid.Column="1" Content="CLOSE" Padding="5" Margin="5" Width="890" Click="BackButton_Click" FontWeight="Medium" Foreground="#446d97" Background="#c5dded"/>
                             </Grid>
+                        
+
                         </Grid>
+                        <Label Grid.Row="4" x:Name="myMessageLabel" Content="{Binding Message}" Visibility="{Binding IsMessageVisible}" Foreground="#c59cc2"  FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" />
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
