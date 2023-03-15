@@ -46,7 +46,7 @@
 
 
                 <Label x:Name="myDataGrid_HeaderLabel" Content="Users" Margin="0,0,0,0" Background="#6a839d" FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="0" Foreground="#c3d8eb"/>
-                <DataGrid x:Name="myDataGrid" Grid.Row="1" Padding="20" AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" SelectedCellsChanged="myDataGrid_SelectedCellsChanged" HorizontalAlignment="Stretch" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
+                <DataGrid x:Name="myDataGrid" Grid.Row="1" Padding="20"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" SelectedCellsChanged="myDataGrid_SelectedCellsChanged" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGrid}">
                             <Setter Property="Background" Value="#e6e8f2" />

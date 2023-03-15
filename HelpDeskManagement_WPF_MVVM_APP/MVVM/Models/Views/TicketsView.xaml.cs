@@ -52,6 +52,8 @@ public partial class TicketsView : UserControl
 
     #region Private Methods
 
+
+
     // Load all users into myDataGrid
     private async Task ShowAllUsers()
     {

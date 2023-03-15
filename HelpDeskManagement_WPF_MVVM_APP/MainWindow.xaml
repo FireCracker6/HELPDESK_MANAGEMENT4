@@ -8,22 +8,23 @@
                 xmlns:views="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
             
              d:DataContext="{d:DesignInstance Type=viewmodels:TicketsViewModel}"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="SAXE HELPDESK MANAGEMENT V1.0 BETA" Height="1000" Width="2200">
+    
     <Grid Background="#b7c7d4" Height="6000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
             <Button Command="{Binding GoToTicketsCommand}" Content="&#xf022;" Style="{StaticResource navButton}" />
             <Button Command="{Binding GoToAddTicketCommand}"  Content="&#xf872;" Style="{StaticResource navButton}"   />
-       
 
         </StackPanel>
 
-        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" >
+        <StackPanel Grid.Column="1">
+                <ContentControl  Content="{Binding CurrentViewModel}" >
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:TicketsViewModel}">
                     <views:TicketsView />
@@ -33,7 +34,7 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-        <StackPanel Grid.Column="1">
+       
          
         </StackPanel>
      
