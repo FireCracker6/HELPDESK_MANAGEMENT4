@@ -10,10 +10,10 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:TicketsViewModel}"
      
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="3000">
+             d:DesignHeight="1000" d:DesignWidth="1000">
 
 
-    <Grid Margin="40">
+    <Grid Margin="40" >
         <Grid.RowDefinitions >
             <RowDefinition Height="auto" />
             <RowDefinition  />
@@ -31,19 +31,17 @@
 
 
 
-            <Grid Width="2000">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+               
                 </Grid.RowDefinitions>
+             
 
-
-
+             
 
                 <Label x:Name="myDataGrid_HeaderLabel" Content="Users" Margin="0,0,0,0" Background="#6a839d" FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="0" Foreground="#c3d8eb"/>
 
@@ -100,7 +98,7 @@
                         <DataGridTemplateColumn Header="Show Details">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Padding="4" Margin="5" Content="View Details" Click="TicketDetail_Click" Background="#d9d6e3" BorderBrush="#a7abb9" BorderThickness="1" />
+                                    <Button Padding="4" Margin="5, 5, 2, 5" Content="View Details" Click="TicketDetail_Click" Background="#d9d6e3" BorderBrush="#a7abb9" BorderThickness="1" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -109,8 +107,8 @@
 
 
 
-                <Label x:Name="myTicketDataGrid_HeaderLabel" Content="Ticket(s)" Margin="0,0,0,0"  FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="4" Background="#6a839d" Foreground="#c3d8eb"/>
-                <DataGrid x:Name="myTicketDataGrid" Grid.Row="5" Padding="20"  HorizontalContentAlignment="Center"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
+                <Label x:Name="myTicketDataGrid_HeaderLabel" Content="Ticket(s)" Margin="0,0,0,0"  FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="2" Background="#6a839d" Foreground="#c3d8eb" />
+                <DataGrid x:Name="myTicketDataGrid" Grid.Row="3" Padding="20"  HorizontalContentAlignment="Center"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGrid}">
                             <Setter Property="Background" Value="#e6e8f2" />

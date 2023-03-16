@@ -77,6 +77,7 @@ public partial class AddTicketsViewModel : ObservableObject
     };
     public List<ComboBoxItem> TicketStatusList { get; } = new List<ComboBoxItem>
     {
+    new ComboBoxItem { Content = "Not Started" },
     new ComboBoxItem { Content = "Opened" },
     new ComboBoxItem { Content = "In Progress" },
     new ComboBoxItem { Content = "Closed" }
