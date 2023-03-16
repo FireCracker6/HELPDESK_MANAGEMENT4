@@ -130,7 +130,7 @@ public partial class TicketsView : UserControl
         foreach (var item in myDataGrid.SelectedItems)
         {
             // Get the corresponding user for the selected item
-            UsersEntity user = item as UsersEntity;
+            UsersEntity? user = item as UsersEntity;
 
             if (user != null)
             {
@@ -139,7 +139,7 @@ public partial class TicketsView : UserControl
                 Debug.WriteLine(selectedUserId);
 
                 // Select tickets associated with the selected user
-                ShowGridTickets(selectedUserId);
+               _= ShowGridTickets(selectedUserId);
             }
         }
     }

@@ -21,7 +21,7 @@ public partial class AddTicketsViewModel : ObservableObject
     [ObservableProperty]
     private string pageTitle = "Add Tickets View";
 
-    private readonly DataContext _context;
+    private readonly DataContext _context = null!;
 
     private ComboBoxItem _ticketPriority = null!;
     public ComboBoxItem TicketPriority

@@ -5,6 +5,5 @@ public class TicketStatuses
     public int Id { get; set; } 
     public int TicketId { get; set; }
     public string StatusName { get; set; } = null!;
-    public static List<string> StatusesList { get; } = new List<string> { "Opened", "Updated", "Closed" };
     public TicketsEntity Tickets { get; set; } = null!;
 }

@@ -8,14 +8,14 @@ namespace HelpDeskManagement_WPF_MVVM_APP.Services;
 internal class TicketsViewService
 {
     #region Fields
-    private static readonly TicketService _context;
-    private static ObservableCollection<TicketModel> tickets;
+    private static readonly TicketService _context = null!;
+    private static ObservableCollection<TicketModel> tickets = null!;
     #endregion
 
     #region Constructor
     public TicketsViewService()
     {
-        ReturnList();
+       _= ReturnList();
         var tickets = new TicketService();
     }
     #endregion

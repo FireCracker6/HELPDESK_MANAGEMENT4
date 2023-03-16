@@ -24,11 +24,11 @@ public partial class TicketDetailModel : ObservableRecipient
     #region Fields
 
     private readonly DataContext _context;
-    private readonly TicketService _ticketService;
+    private readonly TicketService _ticketService = null!;
 
-    private List<string> _priorityList;
+    
 
-    private DataGrid _ticketDataGrid;
+    private DataGrid _ticketDataGrid = null!;
 
     #endregion
 
@@ -43,7 +43,7 @@ public partial class TicketDetailModel : ObservableRecipient
             OnPropertyChanged(nameof(TicketDataGrid));
         }
     }
-
+    private List<string> _priorityList = null!;
     public List<string> PriorityList
     {
         get { return _priorityList; }
@@ -54,7 +54,8 @@ public partial class TicketDetailModel : ObservableRecipient
         }
     }
 
-    private List<string> _statusesList;
+
+    private List<string> _statusesList = null!;
     public List<string> StatusesList
     {
         get { return _statusesList; }
@@ -74,7 +75,7 @@ public partial class TicketDetailModel : ObservableRecipient
         set => SetProperty(ref _selectedUserId, value);
     }
 
-    private Ticket _selectedTicket;
+    private Ticket _selectedTicket = null!;
     public Ticket SelectedTicket
     {
         get { return _selectedTicket; }
@@ -86,7 +87,7 @@ public partial class TicketDetailModel : ObservableRecipient
         }
     }
 
-    private ObservableCollection<Ticket> _tickets;
+    private ObservableCollection<Ticket> _tickets = null!;
     public ObservableCollection<Ticket> Tickets
     {
         get { return _tickets; }
@@ -96,11 +97,11 @@ public partial class TicketDetailModel : ObservableRecipient
             OnPropertyChanged(nameof(Tickets));
         }
     }
-    private string _selectedPriority;
+    //private string _selectedPriority = null!;
 
 
     // For a message after updating to the user
-    private string _message;
+    private string _message = null!;
     public string Message
     {
         get { return _message; }
@@ -159,7 +160,8 @@ public partial class TicketDetailModel : ObservableRecipient
         // Debug.WriteLine(tickets.Count());
        
     }
-   
+
+
 
     public async Task SaveTicket(Ticket ticket, DataGrid ticketDataGrid)
     {
@@ -173,14 +175,14 @@ public partial class TicketDetailModel : ObservableRecipient
             throw new ArgumentException($"Ticket with Id {selectedTicket.Id} does not exist.");
         }
 
-      
+
         var userEntity = await _context.Users.FindAsync(selectedTicket.UsersId);
         if (userEntity != null)
         {
             userEntity.FirstName = ticket.FirstName;
             userEntity.LastName = ticket.LastName;
             userEntity.Email = ticket.Email;
-       //     userEntity.PhoneNumber = ticket.PhoneNumber; // NOT YET IMPLEMENTED
+            //     userEntity.PhoneNumber = ticket.PhoneNumber; // NOT YET IMPLEMENTED
         }
         ticketEntity.Title = ticket.Title;
         ticketEntity.Description = ticket.Description;
@@ -193,17 +195,22 @@ public partial class TicketDetailModel : ObservableRecipient
         {
             ticketEntity.ClosedAt = DateTime.Now;
         }
+
         ticketEntity.Priorities = ticket.Priorities.Select(p => new TicketPriorities
+
         {
             Id = p.Id,
             PriorityName = p.PriorityName
         }).ToList();
+
+     
         ticketEntity.Statuses = ticket.Statuses.Select(s => new TicketStatuses
         {
             Id = s.Id,
             TicketId = s.TicketId,
             StatusName = s.StatusName
         }).ToList();
+
         // Update the Comments collection
         ticketEntity.Comments.Clear(); // remove all existing comments
         foreach (var comment in ticket.Comments)
@@ -222,12 +229,16 @@ public partial class TicketDetailModel : ObservableRecipient
         // Commit changes to the database
         await _context.SaveChangesAsync();
 
+
+
         // update the tickets in the view
         var mainWindow = Application.Current.MainWindow;
         var ticketsView = FindVisualChild<TicketsView>(mainWindow);
         await ticketsView.UpdateTickets();
-       
+
     }
+ 
+
     private async Task DisplayMessage(string message, TimeSpan displayTime)
     {
         Message = message;
@@ -238,7 +249,7 @@ public partial class TicketDetailModel : ObservableRecipient
     }
 
 
-    private ICommand _saveTicketCommand;
+    private ICommand _saveTicketCommand = null!;
     public ICommand SaveTicketCommand
     {
         get
@@ -249,12 +260,14 @@ public partial class TicketDetailModel : ObservableRecipient
                 {
                     if (SelectedTicket == null || _ticketDataGrid.SelectedItem == null)
                     {
+                       
                         await DisplayMessage("No updates made you must edit a column!", TimeSpan.FromSeconds(3));
                         return;
                     }
 
                     await SaveTicket(SelectedTicket, _ticketDataGrid);
                     await DisplayMessage($"Updates succcessfull for selected ticket id: {SelectedTicket.Id} with the email-address: {SelectedTicket.Email}", TimeSpan.FromSeconds(3));
+               
                 });
             }
             return _saveTicketCommand;

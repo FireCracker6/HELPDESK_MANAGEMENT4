@@ -12,7 +12,7 @@ namespace HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private ObservableObject currentViewModel;
+        private ObservableObject currentViewModel = null!;
 
         [RelayCommand]
         private void GoToAddTicket() => CurrentViewModel = new AddTicketsViewModel();

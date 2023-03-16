@@ -220,7 +220,7 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
-                                                <ComboBox ItemsSource="{Binding StatusesList}"
+                                                <ComboBox x:Name="statusComboBox" ItemsSource="{Binding StatusesList}"
                               SelectedItem="{Binding Path=Statuses[0].StatusName}"
                               SelectedValuePath="."
                               SelectedValue="{Binding Path=Statuses[0].StatusName}"

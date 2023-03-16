@@ -18,9 +18,9 @@ public partial class TicketDetails : UserControl
 {
     #region Private Fields
 
-    private readonly UserService _userService;
-    private readonly TicketService _ticketService;
-    private readonly Guid _userId;
+    private readonly UserService _userService = null!;
+    private readonly TicketService _ticketService = null!;
+   // private readonly Guid _userId;
     private DataGrid _ticketDataGrid;
 
     #endregion
@@ -33,14 +33,14 @@ public partial class TicketDetails : UserControl
         InitializeComponent();
         var viewModel = new TicketDetailModel(userId);
         DataContext = viewModel;
-        _ticketDataGrid = ticketDataGrid;
-        Ticket selectedTicket = viewModel.SelectedTicket;
+        _ticketDataGrid = ticketDataGrid!;
+        Ticket selectedTicket = viewModel.SelectedTicket!;
        
         // Set the Command of the saveButton to the SaveTicketCommand of the viewModel
-        saveButton.Command = viewModel.SaveTicketCommand;
+        saveButton.Command = viewModel.SaveTicketCommand!;
 
         // Set the _ticketDataGrid property of the viewModel
-        viewModel.TicketDataGrid = _ticketDataGrid;
+        viewModel.TicketDataGrid = _ticketDataGrid!;
     }
 
     #endregion

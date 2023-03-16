@@ -35,7 +35,7 @@ public class UsersEntity
     public static implicit operator Ticket(UsersEntity usersEntity)
     {
 
-        TicketsEntity ticketEntity = null!;
+       // TicketsEntity ticketEntity = null!;
         return new Ticket
         {
           

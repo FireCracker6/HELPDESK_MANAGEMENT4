@@ -23,18 +23,18 @@
        
 
         </StackPanel>
-    
-        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" >
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:TicketsViewModel}" >
-                    <views:TicketsView />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AddTicketsViewModel}">
-                    <views:AddTicket />
-                </DataTemplate>
-            </ContentControl.Resources>
+      
+            <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" >
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:TicketsViewModel}" >
+                        <views:TicketsView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AddTicketsViewModel}">
+                        <views:AddTicket />
+                    </DataTemplate>
+                </ContentControl.Resources>
             </ContentControl>
-     
+       
         <StackPanel Grid.Column="1">
          
         </StackPanel>
