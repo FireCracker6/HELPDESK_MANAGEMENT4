@@ -6,29 +6,34 @@
               xmlns:viewmodels="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.ViewModels"
                 xmlns:views="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
              xmlns:local="clr-namespace:HelpDeskManagement_WPF_MVVM_APP.MVVM.Models.Views"
-           
+          
              d:DataContext="{d:DesignInstance Type=viewmodels:TicketsViewModel}"
      
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="1000">
+             d:DesignHeight="6000" d:DesignWidth="1000"   HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch">
 
 
-    <Grid Margin="40" >
+  
+
+            <Grid Margin="40" >
         <Grid.RowDefinitions >
             <RowDefinition Height="auto" />
-            <RowDefinition  />
             <RowDefinition Height="auto" />
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition MinHeight="50" />
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Text="{Binding PageTitle}" FontSize="22" FontWeight="Medium" Margin="0 0 0 20" />
-
-        <Grid Grid.Row="1">
+     
+                <TextBlock Grid.Row="0" Text="{Binding PageTitle}" FontSize="22" FontWeight="Medium" Margin="0 0 0 20" />
+  
+                <Grid Grid.Row="1 "  >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-
 
 
             <Grid>
@@ -39,13 +44,13 @@
                     <RowDefinition />
                
                 </Grid.RowDefinitions>
-             
 
-             
+                <ScrollViewer MaxHeight="1000" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" >
+                    <StackPanel VerticalAlignment="Top" Height="auto" Margin="5">
 
-                <Label x:Name="myDataGrid_HeaderLabel" Content="Users" Margin="0,0,0,0" Background="#6a839d" FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="0" Foreground="#c3d8eb"/>
+                        <Label x:Name="myDataGrid_HeaderLabel" Content="Users" Margin="0,0,0,0" Background="#6a839d" FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="1" Foreground="#c3d8eb" VerticalAlignment="Top"/>
 
-                <DataGrid x:Name="myDataGrid" Grid.Row="1" Padding="20"  HorizontalContentAlignment="Center"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" SelectedCellsChanged="myDataGrid_SelectedCellsChanged" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
+                    <DataGrid x:Name="myDataGrid" Grid.Row="3" Padding="20"  HorizontalContentAlignment="Center"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" SelectedCellsChanged="myDataGrid_SelectedCellsChanged" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" VerticalAlignment="Top" >
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGrid}">
                             <Setter Property="Background" Value="#e6e8f2" />
@@ -104,11 +109,11 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+          
 
 
-
-                <Label x:Name="myTicketDataGrid_HeaderLabel" Content="Ticket(s)" Margin="0,0,0,0"  FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="2" Background="#6a839d" Foreground="#c3d8eb" />
-                <DataGrid x:Name="myTicketDataGrid" Grid.Row="3" Padding="20"  HorizontalContentAlignment="Center"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
+                <Label x:Name="myTicketDataGrid_HeaderLabel" Content="Ticket(s)"   FontWeight="Bold" FontSize="16" Padding="5" Grid.Row="4" Background="#6a839d" Foreground="#c3d8eb"  />
+                        <DataGrid x:Name="myTicketDataGrid" Grid.Row="5" Padding="20"   HorizontalContentAlignment="Center"  AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" BorderThickness="0" RowHeaderWidth="0" HorizontalAlignment="Center" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="DarkGray" >
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGrid}">
                             <Setter Property="Background" Value="#e6e8f2" />
@@ -187,20 +192,22 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                        <DataGrid x:Name="ticketDataGrid" Grid.Row="5" Padding="20" AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" SelectionChanged="TicketDataGrid_SelectionChanged" Visibility="Hidden"/>
+                    </StackPanel>
 
-
+                </ScrollViewer>
 
             </Grid>
-
+                 
+              
+         
         </Grid>
 
-        <Grid Grid.Row="1">
-            <Frame x:Name="myFrame" NavigationUIVisibility="Hidden"/>
-
+        <Grid Grid.Row="2">
+            <Frame x:Name="myFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch"/>
         </Grid>
-        <DataGrid x:Name="ticketDataGrid" Grid.Row="5" Padding="20" AutoGenerateColumns="False" CellEditEnding="MyDataGrid_CellEditEnding" CanUserAddRows="false" SelectionChanged="TicketDataGrid_SelectionChanged">
 
-        </DataGrid>
+
 
     </Grid>
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+
 using System.Windows.Navigation;
 using HelpDeskManagement_WPF_MVVM_APP.Models;
 using HelpDeskManagement_WPF_MVVM_APP.Services;
@@ -30,6 +31,7 @@ public partial class TicketsView : UserControl
     public TicketsView()
     {
         InitializeComponent();
+        myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         _userService = new UserService();
 
        _= ShowAllUsers();
@@ -45,7 +47,9 @@ public partial class TicketsView : UserControl
         myTicketDataGrid_HeaderLabel.Visibility = Visibility.Visible;
 
         // Hide navigation controls
-        myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+       
+       
+
     }
 
     #endregion
@@ -199,8 +203,7 @@ public partial class TicketsView : UserControl
         }
 
     }
-
-
+    
     public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
     {
         for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)

@@ -19,8 +19,7 @@ public partial class TicketDetails : UserControl
     #region Private Fields
 
     private readonly UserService _userService = null!;
-    private readonly TicketService _ticketService = null!;
-   // private readonly Guid _userId;
+
     private DataGrid _ticketDataGrid;
 
     #endregion
